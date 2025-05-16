@@ -9,7 +9,7 @@ Henry
 
 1 Super Smash Bros 
 
-A simplified two-player fighting game inspired by Super Smash Flash. To keep it manageable: just a single round, no character selection, and fixed characters with basic moves. Focus will be on knockback physics, health/damage system, and it actually being playable.
+A simplified two-player fighting game inspired by Super Smash Flash. To keep it manageable: just a single round, no character selection, and fixed characters with basic moves. Focus will be on knockback physics, health/damage system, and it actually being fun to play without bugs
 
 2 diep.io 
 

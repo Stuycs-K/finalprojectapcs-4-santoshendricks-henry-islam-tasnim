@@ -6,9 +6,9 @@ names here.(CHANGE THIS!!!!!)
        
 # IDEAS:
 
-1 statement of the problem you are solving and/or a high level description of the project. (CHANGE THIS!!!!!)
+1 Super Smash Bros
 
-2 statement of the problem you are solving and/or a high level description of the project. (CHANGE THIS!!!!!)
+2 diep.io
 
-3 statement of the problem you are solving and/or a high level description of the project. (CHANGE THIS!!!!!)
+3 Flappy Bird
 

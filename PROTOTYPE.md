@@ -1,13 +1,17 @@
 
 # Technical Details:
 
-(CHANGE THIS!!!!!)
 
-A description of your technical design. This should include: 
-   
-How you will be using the topics covered in class in the project.
+Map
+
+
+Class
      
 # Project Design
+
+Abstract class for the player and enemy basic properties such as xp system, health and regen.
+
+Then different subclasses for each gun upgrade
 
 UML Diagrams and descriptions of key algorithms, classes, and how things fit together.
 

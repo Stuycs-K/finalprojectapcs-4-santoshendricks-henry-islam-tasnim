@@ -8,9 +8,11 @@ Class
      
 # Project Design
 
-Abstract class for the player and enemy basic properties such as xp system, health and regen.
+Abstract class for the player and enemy basic properties such as xp, health, regen and upgrade system. (Might simplify enemies in the future if it messes with runtime)
 
 Then different subclasses for each gun upgrade
+
+A class for the different 
 
 UML Diagrams and descriptions of key algorithms, classes, and how things fit together.
 

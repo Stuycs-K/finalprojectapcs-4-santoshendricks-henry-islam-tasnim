@@ -1,8 +1,7 @@
 
 # Technical Details:
 
-
-Map
+Player will be in a center and a map object with reflect the movement of the player. To keep all other objects consistent with the movement of the player the vector of the map movement will be applied onto all other objects.
 
 
 Class

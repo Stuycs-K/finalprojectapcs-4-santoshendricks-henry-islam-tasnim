@@ -8,13 +8,16 @@ Class
      
 # Project Design
 
-Abstract class for the player and enemy basic properties such as xp, health, regen and upgrade system. (Might simplify enemies in the future if it messes with runtime)
+Abstract class for the player and enemy basic properties such as xp system, health and regen.
 
-Then different subclasses for each gun upgrade
+Then different subclasses for each tank upgrade
 
-A class for the different 
+The different polygons that tanks can break to gain xp
+
+The different playstyle presets for the enemies
 
 UML Diagrams and descriptions of key algorithms, classes, and how things fit together.
+
 
 
     

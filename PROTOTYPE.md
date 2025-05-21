@@ -1,31 +1,35 @@
 
 # Technical Details:
-
 Player will be in a center and a map object with reflect the movement of the player. To keep all other objects consistent with the movement of the player the vector of the map movement will be applied onto all other objects.
 
+Players will have different tank classes:
 
-Class
+Twin: shoots two bullets at a time
+Sniper: greater FOV and faster bullets
+Machine Gun: faster shooting
+Flank Guard: shoot in both directions
      
 # Project Design
 
-Abstract class for the player and enemy basic properties such as xp system, health and regen.
+There will be an abstract class for all movable and renderable objects on the gameplay field, which will be capable of moving, taking/healing damage, turning, detecting each other's touch.
 
-Then different subclasses for each tank upgrade
+Enemies and player objects are the same class; the enemies will be stored in a list, while the player will be a single instance variable
 
-The different polygons that tanks can break to gain xp
+Health, weapon damage and rendering will be affected by a player object's type.
 
-The different playstyle presets for the enemies
+Polygons will float around that give xp upon breaking but damage the players on contact.
+
+Enemies will be given basic decision making skills. While the project may be expanded further, this will involve detecting incoming bullets and moving away from them, detecting players and strafe shooting at them, shooting at polygons, and selecting class upgrades when they appear.
 
 ![alt text](Prototype0-1.PNG)
-
-UML Diagrams and descriptions of key algorithms, classes, and how things fit together.
-
-
 
     
 # Intended pacing:
 
-How you are breaking down the project and who is responsible for which parts.
+Pacing schedule:
 
-A timeline with expected completion dates of parts of the project. (CHANGE THIS!!!!!)
-
+May 27: finish abstract FieldObject class
+May 28: finish Bullet class
+May 29: finish Polygon class
+May 30: finish Player class
+June 1: Finish upgrade system

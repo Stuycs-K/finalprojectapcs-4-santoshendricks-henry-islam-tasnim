@@ -16,6 +16,8 @@ The different polygons that tanks can break to gain xp
 
 The different playstyle presets for the enemies
 
+![alt text](Prototype0-1.PNG)
+
 UML Diagrams and descriptions of key algorithms, classes, and how things fit together.
 
 

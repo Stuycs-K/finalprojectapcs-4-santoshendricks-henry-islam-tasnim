@@ -1,26 +1,27 @@
 abstract class FieldObject {
-  private double x;
-  private double y;
-  private double speed;
-  private double direction;
+  private PVector position;
+  private PVector speed;
+  private PVector direction;
   private int type;
   private int hp;
+
   private boolean isVisible;
-  
+
   public boolean isVisible() {
     return isVisible;
   }
+
   public abstract void render();
   public abstract void isTouching(FieldObject other);
-  public void rotateLeft(double degree) {
-    direction += degree;
-  }
+
   public void setX(double x) {
-    this.x = x;
+    position.x = (float)x;
   }
+
   public void setY(double y) {
-    this.y = y;
+    position.y = (float)y;
   }
+
   // takeDamage will return true upon death
   public boolean takeDamage(int dmg) {
     hp -= dmg;
@@ -30,28 +31,33 @@ abstract class FieldObject {
     }
     return false;
   }
+
   public void heal(int health) {
     hp += health;
   }
-  
+
   // functions to be added to UML
   public double getX() {
-    return x;
+    return position.x;
   }
+
   public double getY() {
-    return y;
+    return position.y;
   }
-  public double getDirection() {
-    return direction;
+
+  public PVector getDirection() {
+    return direction.copy();
   }
+
   public int getHp() {
     return hp;
   }
+
   public int getType() {
     return type;
   }
+
   public double getSpeed() {
-    return speed;
+    return speed.mag();
   }
-  
 }

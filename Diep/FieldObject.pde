@@ -33,4 +33,25 @@ abstract class FieldObject {
   public void heal(int health) {
     hp += health;
   }
+  
+  // functions to be added to UML
+  public double getX() {
+    return x;
+  }
+  public double getY() {
+    return y;
+  }
+  public double getDirection() {
+    return direction;
+  }
+  public int getHp() {
+    return hp;
+  }
+  public int getType() {
+    return type;
+  }
+  public double getSpeed() {
+    return speed;
+  }
+  
 }

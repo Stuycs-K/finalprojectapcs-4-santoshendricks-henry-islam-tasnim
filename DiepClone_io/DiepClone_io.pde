@@ -6,6 +6,7 @@ abstract class FieldObject {
   float hp;
   boolean isAlive;
 
+
   FieldObject(PVector p, PVector v, PVector d, float rad, float health) {
     pos = p.copy();
     vel = v.copy();
@@ -42,6 +43,24 @@ abstract class FieldObject {
     hp += amt;
   }
 
-  // subclasses self-draw
-  abstract void show();
+  // On Screen Checker
+  boolean onScreen() {
+    // tried to do a way to offset the coordinates for rotating objects so that stuff doesn't dissapear when only the center is off screen
+  float screenX = pos.x - dir.x * r;
+  float screenY = pos.y - dir.y * r;
+  return screenX + r > Player.player.pos.x - width/2 &&
+         screenX - r < Player.player.pos.x + width/2 &&
+         screenY + r > Player.player.pos.y - height/2 &&
+         screenY - r < Player.player.pos.y + height/2;
+    // there are errors here but I want to save the player pos grab for the static player variable in the subclasses since I cant declare statics here
+  }
+
+  // subclasses self-draw if on screen to optimize running
+void show() {
+  if (onScreen()) {
+    fill(255, 0, 0);
+    ellipse(pos.x, pos.y, r * 2, r * 2);
+  }
+}
+
 }

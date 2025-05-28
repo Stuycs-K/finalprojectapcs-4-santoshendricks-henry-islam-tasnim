@@ -11,9 +11,11 @@ Flank Guard: shoot in both directions
      
 # Project Design
 
-There will be an abstract class for all movable and renderable objects on the gameplay field, which will be capable of moving, taking/healing damage, turning, detecting each other's touch.
+There will be an abstract class for all movable and renderable objects on the gameplay field, which will be capable of moving, taking/healing damage, turning, detecting each other's touch, becoming visible, and ticking.
 
-Enemies and player objects are the same class; the enemies will be stored in a list, while the player will be a single instance variable
+Enemies and player objects are the same class; the enemies will be stored in a list, while the player will be a single instance variable.
+
+All objects on the field will be stored in the Field class, which contains info like size and also the list of FieldObjects.
 
 Health, weapon damage and rendering will be affected by a player object's type.
 

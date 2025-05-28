@@ -23,7 +23,9 @@ Polygons will float around that give xp upon breaking but damage the players on 
 
 Enemies will be given basic decision making skills. While the project may be expanded further, this will involve detecting incoming bullets and moving away from them, detecting players and strafe shooting at them, shooting at polygons, and selecting class upgrades when they appear.
 
-![alt text](Prototype0-1.PNG)
+![First UML](Prototype0-1.PNG)
+New UML
+![Second UML](Prototype.PNG)
 
     
 # Intended pacing:

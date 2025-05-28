@@ -6,6 +6,15 @@ abstract class FieldObject {
   private int hp;
 
   private boolean isVisible;
+  
+  public FieldObject(int type, PVector position, PVector speed, PVector direction, int hp) {
+    this.type = type;
+    this.position = position;
+    this.speed = speed;
+    this.direction = direction;
+    this.type = type;
+    this.hp = hp;
+  }
 
   public boolean isVisible() {
     return isVisible;

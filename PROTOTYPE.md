@@ -13,7 +13,11 @@ Flank Guard: shoot in both directions
 
 There will be an abstract class for all movable and renderable objects on the gameplay field, which will be capable of moving, taking/healing damage, turning, detecting each other's touch, becoming visible, and ticking.
 
+At launch, the main menu will display a name input box and a start button. Players can type their name and click the button to begin the game.
+
 Enemies and player objects are the same class; the enemies will be stored in a list, while the player will be a single instance variable.
+
+Players use the WASD keys to move their tank and the mouse to aim and shoot. They will also have to click on buttons for upgrades.
 
 All objects on the field will be stored in the Field class, which contains info like size and also the list of FieldObjects.
 

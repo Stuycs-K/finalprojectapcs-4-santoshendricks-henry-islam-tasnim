@@ -1,19 +1,46 @@
-abstract class FieldObject {
+abstract class AFieldObject {
   private PVector position;
   private PVector speed;
   private PVector direction;
   private int type;
   private int hp;
+  private color objColor;
+  private int size;
+  
+  private int team; // this is a number that identifies an object
 
   private boolean isVisible;
+  
+  public AFieldObject(int type, int team, PVector position, PVector speed, PVector direction, int hp, color objColor, int size) {
+    this.type = type;
+    this.position = position;
+    this.speed = speed;
+    this.direction = direction;
+    this.type = type;
+    this.hp = hp;
+    this.objColor = objColor;
+    this.team = team;
+    this.size = size;
+  }
 
   public boolean isVisible() {
     return isVisible;
   }
 
   public abstract void render();
-  public abstract void isTouching(FieldObject other);
+  public abstract boolean isTouching(AFieldObject other);
+  
+  public double distanceTo(AFieldObject other) {
+    return PVector.sub(position, other.getPosition()).mag();
+  }
 
+  public PVector getPosition() {
+    return position;
+  }
+  public void setPosition(PVector pos) {
+    position = pos;
+  }
+  
   public void setX(double x) {
     position.x = (float)x;
   }
@@ -57,7 +84,19 @@ abstract class FieldObject {
     return type;
   }
 
-  public double getSpeed() {
+  public double getSpeedMag() {
     return speed.mag();
+  }
+  public color getColor() {
+    return objColor;
+  }
+  public int getTeam() {
+    return team;
+  }
+  public int getSize() {
+    return size;
+  }
+  public void setSize(int size) {
+    this.size = size;
   }
 }

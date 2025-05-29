@@ -7,7 +7,7 @@ abstract class AFieldObject {
   private color objColor;
   private int size;
   
-  int team; // this is a number that identifies an object
+  private int team; // this is a number that identifies an object
 
   private boolean isVisible;
   
@@ -28,7 +28,7 @@ abstract class AFieldObject {
   }
 
   public abstract void render();
-  public abstract void isTouching(AFieldObject other);
+  public abstract boolean isTouching(AFieldObject other);
   
   public double distanceTo(AFieldObject other) {
     return PVector.sub(position, other.getPosition()).mag();
@@ -84,7 +84,7 @@ abstract class AFieldObject {
     return type;
   }
 
-  public double getSpeed() {
+  public double getSpeedMag() {
     return speed.mag();
   }
   public color getColor() {

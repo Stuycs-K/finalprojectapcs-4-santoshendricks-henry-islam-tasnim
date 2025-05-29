@@ -4,16 +4,20 @@ abstract class FieldObject {
   private PVector direction;
   private int type;
   private int hp;
+  private color objColor;
+  
+  int team; // this is a number that identifies an object
 
   private boolean isVisible;
   
-  public FieldObject(int type, PVector position, PVector speed, PVector direction, int hp) {
+  public FieldObject(int type, PVector position, PVector speed, PVector direction, int hp, color objColor) {
     this.type = type;
     this.position = position;
     this.speed = speed;
     this.direction = direction;
     this.type = type;
     this.hp = hp;
+    this.objColor = objColor;
   }
 
   public boolean isVisible() {
@@ -68,5 +72,11 @@ abstract class FieldObject {
 
   public double getSpeed() {
     return speed.mag();
+  }
+  public color getColor() {
+    return objColor;
+  }
+  public int getTeam() {
+    return team;
   }
 }

@@ -28,8 +28,19 @@ abstract class AFieldObject {
   }
 
   public abstract void render();
-  public abstract void isTouching(FieldObject other);
+  public abstract void isTouching(AFieldObject other);
+  
+  public double distanceTo(AFieldObject other) {
+    return PVector.sub(position, other.getPosition()).mag();
+  }
 
+  public PVector getPosition() {
+    return position;
+  }
+  public void setPosition(PVector pos) {
+    position = pos;
+  }
+  
   public void setX(double x) {
     position.x = (float)x;
   }

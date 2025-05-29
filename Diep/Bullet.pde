@@ -13,7 +13,7 @@ class Bullet extends AFieldObject {
   
   public boolean isTouching(AFieldObject other) {
     if (other.getType() == TYPE_PLAYER) {
-      return distanceTo(other) <= size || distanceTo(other) <= other.getSize();
+      return distanceTo(other) >= size + other.getSize();
     }
   
 }

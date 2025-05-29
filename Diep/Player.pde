@@ -24,7 +24,11 @@ class Player extends FieldObject {
      return (int)level; 
    }
    
+   public double distanceTo(AFieldObject other){
+     return PVector.sub(this.position, other.getPosition()).mag();
+   }
    public void render(){
+     rect( PVector.add(position.x, norm(direction.x) * size /2),PVector.add(position.y,norm(direction.y)*size/2));
      circle(position.x,position.y);
    }
   

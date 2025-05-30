@@ -28,6 +28,7 @@ abstract class AFieldObject {
   }
 
   public abstract void render();
+  public abstract void tick();
   public abstract boolean isTouching(AFieldObject other);
   
   public double distanceTo(AFieldObject other) {

@@ -11,6 +11,12 @@ class Bullet extends AFieldObject {
     circle((float)getX(), (float)getY(), (float)getSize());
   }
   
+  public void tick() {
+    position.add(speed);
+    if (isVisible()) {
+      render();
+    }
+  
   public boolean isTouching(AFieldObject other) {
     if (other.getType() == TYPE_PLAYER) {
       return distanceTo(other) <= getSize() + other.getSize();

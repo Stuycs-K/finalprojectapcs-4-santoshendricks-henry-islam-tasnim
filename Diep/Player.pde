@@ -1,4 +1,4 @@
-class Player extends FieldObject {
+class Player extends AFieldObject{
    private int xp;
    private int level;
    private int name;
@@ -11,19 +11,22 @@ class Player extends FieldObject {
      return xp;
    }
    
-   public int setXP(int newp){
+   public void setXP(int newp){
      xp = newp;
-     return xp;
+     calcLevel();
    }
    public int getLevel() {
      return level;
    }
    
    public int calcLevel() {
-     level = (Math.log(xp) / Math.log(2));
+     level = (Math.log(xp + 1) / Math.log(2));
      return (int)level; 
    }
-   
+   public boolean isTouching(AFieldObject other) {
+  return PVector.dist(this.getPosition(), other.getPosition()) <= this.getSize() + other.getSize();
+}
+
    public double distanceTo(AFieldObject other){
      return PVector.sub(this.position, other.getPosition()).mag();
    }

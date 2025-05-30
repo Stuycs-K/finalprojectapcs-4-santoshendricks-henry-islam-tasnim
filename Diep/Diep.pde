@@ -1,9 +1,11 @@
 static final int TYPE_PLAYER = 0;
 static final int TYPE_BULLET = 1;
 static final int TYPE_POLY = 2;
-
+MainMenu menu;
 static final int TEAM_POLY = 0;
 static final int TEAM_USER = 1;
+
+boolean gameStarted = false;
 
 void setup() {
   size(1200, 900);
@@ -15,4 +17,31 @@ void setup() {
   
   t0.render();
   
+  menu = new MainMenu();
+  
+}
+
+void draw() {
+  if (!gameStarted) {
+    menu.display();
+  } else {
+    // this is where the game will forever run
+  }
+}
+
+
+
+void mousePressed() {
+  if (!gameStarted) {
+    menu.handleClick(mouseX, mouseY);
+    if (menu.isStartPressed()) {
+      gameStarted = true;
+    }
+  }
+}
+
+void keyPressed() {
+  if (!gameStarted) {
+    menu.keyInput(key);
+  }
 }

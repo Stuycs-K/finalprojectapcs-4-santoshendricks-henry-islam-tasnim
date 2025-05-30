@@ -1,16 +1,16 @@
 class Player extends AFieldObject{
    private int xp;
    private int level;
-   private int name;
+   private String name;
    private int tankClass;
-   private int teams;
+   private boolean isEnemy;
    
-public Player(int team, PVector position, PVector speed, PVector direction, color objColor, int size) {
+public Player(int team, PVector position, PVector speed, PVector direction, color objColor, int size, String nameP) {
   super(0, team, position, speed, direction, 100, objColor, size);
   xp = 0;
   level = 1;
   tankClass = 0;
-  name = 0;  // (or replace with String if you plan to fix name type)
+  name = nameP;  // (or replace with String if you plan to fix name type)
   teams = team;
 }
 

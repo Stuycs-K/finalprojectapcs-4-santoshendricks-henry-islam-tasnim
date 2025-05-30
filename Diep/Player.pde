@@ -11,7 +11,6 @@ public Player(int team, PVector position, PVector speed, PVector direction, colo
   level = 1;
   tankClass = 0;
   name = nameP;  // (or replace with String if you plan to fix name type)
-  teams = team;
 }
 
    

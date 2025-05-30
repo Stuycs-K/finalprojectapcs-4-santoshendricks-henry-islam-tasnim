@@ -28,7 +28,7 @@ abstract class AFieldObject {
   }
 
   public abstract void render();
-  public abstract void tick();
+  public abstract void tick(Field field);
   public abstract boolean isTouching(AFieldObject other);
   
   public double distanceTo(AFieldObject other) {
@@ -40,6 +40,9 @@ abstract class AFieldObject {
   }
   public void setPosition(PVector pos) {
     position = pos;
+  }
+  public void addPosition(PVector change) {
+    position.add(change);
   }
   
   public void setX(double x) {
@@ -76,6 +79,9 @@ abstract class AFieldObject {
   public PVector getDirection() {
     return direction.copy();
   }
+  public void setDirection(PVector dir) {
+    direction = dir.normalize();
+  }
 
   public int getHp() {
     return hp;
@@ -87,6 +93,9 @@ abstract class AFieldObject {
 
   public double getSpeedMag() {
     return speed.mag();
+  }
+  public PVector getSpeed() {
+    return speed;
   }
   public color getColor() {
     return objColor;

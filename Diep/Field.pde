@@ -5,7 +5,7 @@ class Field {
   int fHeight;
   
   public Field(int w, int h) {
-    user = new Player(); // Write player constructor
+    user = new Player(TEAM_USER, new PVector(0, 0), new PVector(0, 0), new PVector(0, 1), color(0, 0, 100), PLAYER_START_SIZE); // Write player constructor
     
     objects = new ArrayList<AFieldObject>();
     fWidth = w;

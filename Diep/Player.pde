@@ -23,9 +23,12 @@ public Player(int team, PVector position, PVector speed, PVector direction, colo
    }
    
    private void tickUser(Field field) {
+     // Point at mouse
      PVector mousePos = new PVector(mouseX, mouseY);
      PVector newDirection = PVector.sub(mousePos, getPosition());
      setDirection(newDirection);
+     
+     setPosition(
    }
    private void tickEnemy(Field field) {}
 

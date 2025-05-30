@@ -12,10 +12,11 @@ class Bullet extends AFieldObject {
   }
   
   public void tick() {
-    position.add(speed);
+    getPosition().add(getSpeed());
     if (isVisible()) {
       render();
     }
+  }
   
   public boolean isTouching(AFieldObject other) {
     if (other.getType() == TYPE_PLAYER) {

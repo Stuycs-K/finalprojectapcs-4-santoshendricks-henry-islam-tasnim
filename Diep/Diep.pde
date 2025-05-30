@@ -25,7 +25,8 @@ void draw() {
   if (!gameStarted) {
     menu.display();
   } else {
-    // this is where the game will forever run
+    background(225);
+    // this is where the game will forever run through ticks
   }
 }
 

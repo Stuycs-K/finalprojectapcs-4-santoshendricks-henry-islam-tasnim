@@ -11,8 +11,17 @@ public Player(int team, PVector position, PVector speed, PVector direction, colo
   level = 1;
   tankClass = 0;
   name = 0;  // (or replace with String if you plan to fix name type)
-  teams = team;
 }
+   public void tick(Field field) {
+     if (getTeam() == TEAM_USER)  {
+       tickUser(field);
+     } else {
+       tickEnemy(field);
+     }
+   }
+   
+   private void tickUser(Field field) {}
+   private void tickEnemy(Field field) {}
 
    
    public int getXP(){

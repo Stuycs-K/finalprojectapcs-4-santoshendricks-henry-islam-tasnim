@@ -11,5 +11,10 @@ class Field {
     fWidth = w;
     fHeight = h;
   }
-  
+  public void addObj(AFieldObject obj) {
+    objects.add(obj);
+  }
+  public boolean remObj(AFieldObject obj) {
+    return objects.remove(obj);
+  }
 }

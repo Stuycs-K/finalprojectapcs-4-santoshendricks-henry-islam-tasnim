@@ -4,6 +4,7 @@ class Player extends AFieldObject{
    private int name;
    private int tankClass;
    private int teams;
+   private double cooldown;
    
 public Player(int team, PVector position, PVector speed, PVector direction, color objColor, int size) {
   super(0, team, position, speed, direction, 100, objColor, size);
@@ -11,6 +12,7 @@ public Player(int team, PVector position, PVector speed, PVector direction, colo
   level = 1;
   tankClass = 0;
   name = 0;  // (or replace with String if you plan to fix name type)
+  cooldown = 0;
 }
    public void tick(Field field) {
      if (getTeam() == TEAM_USER)  {
@@ -20,7 +22,11 @@ public Player(int team, PVector position, PVector speed, PVector direction, colo
      }
    }
    
-   private void tickUser(Field field) {}
+   private void tickUser(Field field) {
+     PVector mousePos = new PVector(mouseX, mouseY);
+     PVector newDirection = PVector.sub(mousePos, getPosition());
+     setDirection(newDirection);
+   }
    private void tickEnemy(Field field) {}
 
    

@@ -6,6 +6,7 @@ static final int TYPE_PLAYER = 0;
 static final int TYPE_BULLET = 1;
 static final int TYPE_POLY = 2;
 MainMenu menu;
+Field globalField = new Field(10000, 10000);
 static final int TEAM_POLY = 0;
 static final int TEAM_USER = 1;
 
@@ -31,6 +32,17 @@ void draw() {
   } else {
     background(225);
     // this is where the game will forever run through ticks
+    for (AFieldObject obj : globalField.objects) {
+      obj.tick(globalField);
+    }
+    for (int i = 0; i < globalField.objects.size()); i++) {
+      if (globalField.objects.get(i).getHP() <= 0) {
+        globalField.remObj(globalField.objects.get(i));
+        i--;
+      } else {
+        globalField.objects.get(i).render();
+      }
+    
   }
 }
 

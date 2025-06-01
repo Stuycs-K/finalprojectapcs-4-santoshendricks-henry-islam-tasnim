@@ -15,15 +15,16 @@ class Polygon extends AFieldObject {
 public void render() {
   fill(getColor());
   stroke(0);
-  float angle = TWO_PI / 5;  
+  float angle = TWO_PI / type;
   beginShape();
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < type; i++) {
     float sx = getPosition().x + cos(angle * i) * getSize();
     float sy = getPosition().y + sin(angle * i) * getSize();
     vertex(sx, sy);
   }
   endShape(CLOSE);
 }
+
 
 
 }

@@ -31,6 +31,10 @@ abstract class AFieldObject {
   public abstract void tick(Field field);
   public abstract boolean isTouching(AFieldObject other);
   
+  public void tickPos() {
+    position.add(speed);
+  }
+  
   public double distanceTo(AFieldObject other) {
     return PVector.sub(position, other.getPosition()).mag();
   }
@@ -96,6 +100,9 @@ abstract class AFieldObject {
   }
   public PVector getSpeed() {
     return speed;
+  }
+  public void setSpeed(PVector speed) {
+    this.speed = speed;
   }
   public color getColor() {
     return objColor;

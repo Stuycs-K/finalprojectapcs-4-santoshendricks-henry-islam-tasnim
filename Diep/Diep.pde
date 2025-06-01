@@ -35,6 +35,7 @@ void draw() {
     for (AFieldObject obj : globalField.objects) {
       obj.tick(globalField);
     }
+    globalField.user.tick(globalField);
     for (int i = 0; i < globalField.objects.size(); i++) {
       if (globalField.objects.get(i).getHp() <= 0) {
         globalField.remObj(globalField.objects.get(i));
@@ -43,6 +44,7 @@ void draw() {
         globalField.objects.get(i).render();
       }
     }
+    globalField.user.render();
     
   }
 }
@@ -86,3 +88,4 @@ void keyReleased() {
       globalField.dKey = false;
     }
   }
+}

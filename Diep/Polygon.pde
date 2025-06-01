@@ -10,8 +10,10 @@ class Polygon extends AFieldObject {
    
  }
   
-  public boolean isTouching(AFieldObject other) { return true;}
-  
+public boolean isTouching(AFieldObject other) {
+  return PVector.dist(getPosition(), other.getPosition()) <= getSize() + other.getSize();
+}
+
 public void render() {
   fill(getColor());
   stroke(0);

@@ -3,6 +3,10 @@ class Field {
   Player user;
   int fWidth; // Written this way because width and height are processing global variables
   int fHeight;
+  boolean wKey;
+  boolean aKey;
+  boolean sKey;
+  boolean dKey;
   
   public Field(int w, int h) {
     user = new Player(TEAM_USER, new PVector(0, 0), new PVector(0, 0), new PVector(0, 1), color(0, 0, 100), PLAYER_START_SIZE); // Write player constructor
@@ -10,6 +14,10 @@ class Field {
     objects = new ArrayList<AFieldObject>();
     fWidth = w;
     fHeight = h;
+    wKey = false;
+    aKey = false;
+    sKey = false;
+    dKey = false;
   }
   public void addObj(AFieldObject obj) {
     objects.add(obj);

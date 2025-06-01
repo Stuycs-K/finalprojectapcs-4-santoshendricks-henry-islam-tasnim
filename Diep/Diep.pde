@@ -35,13 +35,14 @@ void draw() {
     for (AFieldObject obj : globalField.objects) {
       obj.tick(globalField);
     }
-    for (int i = 0; i < globalField.objects.size()); i++) {
-      if (globalField.objects.get(i).getHP() <= 0) {
+    for (int i = 0; i < globalField.objects.size(); i++) {
+      if (globalField.objects.get(i).getHp() <= 0) {
         globalField.remObj(globalField.objects.get(i));
         i--;
       } else {
         globalField.objects.get(i).render();
       }
+    }
     
   }
 }
@@ -60,5 +61,28 @@ void mousePressed() {
 void keyPressed() {
   if (!gameStarted) {
     menu.keyInput(key);
+  } else {
+    if (key == 'w') {
+      globalField.wKey = true;
+    } else if (key == 'a') {
+      globalField.aKey = true;
+    } else if (key == 's') {
+      globalField.sKey = true;
+    } else if (key == 'd') {
+      globalField.dKey = true;
+    }
   }
 }
+
+void keyReleased() {
+  if (gameStarted) {
+    if (key == 'w') {
+      globalField.wKey = false;
+    } else if (key == 'a') {
+      globalField.aKey = false;
+    } else if (key == 's') {
+      globalField.sKey = false;
+    } else if (key == 'd') {
+      globalField.dKey = false;
+    }
+  }

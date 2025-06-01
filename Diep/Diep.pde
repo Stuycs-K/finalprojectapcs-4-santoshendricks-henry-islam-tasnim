@@ -58,6 +58,11 @@ void mousePressed() {
       gameStarted = true;
     }
   }
+  globalField.mouseDown = true;
+}
+
+void mouseReleased() {
+  globalField.mouseDown = false;
 }
 
 void keyPressed() {

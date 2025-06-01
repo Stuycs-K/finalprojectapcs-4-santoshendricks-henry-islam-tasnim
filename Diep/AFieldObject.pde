@@ -40,7 +40,7 @@ abstract class AFieldObject {
   }
 
   public PVector getPosition() {
-    return position;
+    return position.copy();
   }
   public void setPosition(PVector pos) {
     position = pos;
@@ -99,7 +99,7 @@ abstract class AFieldObject {
     return speed.mag();
   }
   public PVector getSpeed() {
-    return speed;
+    return speed.copy();
   }
   public void setSpeed(PVector speed) {
     this.speed = speed;

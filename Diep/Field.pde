@@ -7,6 +7,7 @@ class Field {
   boolean aKey;
   boolean sKey;
   boolean dKey;
+  boolean mouseDown;
   
   public Field(int w, int h) {
     user = new Player(TEAM_USER, new PVector(300, 300), new PVector(0, 0), new PVector(0, 1), color(0, 0, 100), PLAYER_START_SIZE); // Write player constructor
@@ -18,6 +19,7 @@ class Field {
     aKey = false;
     sKey = false;
     dKey = false;
+    mouseDown = false;
   }
   public void addObj(AFieldObject obj) {
     objects.add(obj);

@@ -54,11 +54,24 @@ class Player extends AFieldObject {
       newSpeed.add(new PVector(1.0, 0.0));
     }
     setSpeed(newSpeed);
+    
+    // Check if you should shoot
+    if (field.mouseDown && cooldown <= 0.0) {
+      // Substitute without special classes; call with tasnim tonight
+      shoot(field);
+      cooldown = 60.0;
+    }
 
+    if (cooldown > 0.0) cooldown -= 1.0;
     tickPos();
   }
   
   private void tickEnemy(Field field) {
+  }
+  
+  private void shoot(Field field) {
+    Bullet newBullet = new Bullet(getTeam(), getPosition(), PVector.mult(getDirection(), 10.0), getDirection(), getColor(), 20, 5);
+    field.addObj(newBullet);
   }
 
 

@@ -25,6 +25,11 @@ public void render() {
   endShape(CLOSE);
 }
 
+public int getXPStored() { 
+
+  return xpStored; }
+
+
 
 
 }

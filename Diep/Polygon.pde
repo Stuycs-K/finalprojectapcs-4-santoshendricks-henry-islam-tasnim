@@ -13,4 +13,5 @@ class Polygon extends AFieldObject {
   public boolean isTouching(AFieldObject other) { return true;}
   
   public void render(){}
+  public void tick(Field field){}
 }

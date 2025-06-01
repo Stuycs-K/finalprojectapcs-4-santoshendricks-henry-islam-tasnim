@@ -59,7 +59,7 @@ class Player extends AFieldObject {
     if (field.mouseDown && cooldown <= 0.0) {
       // Substitute without special classes; call with tasnim tonight
       shoot(field);
-      cooldown = 60.0;
+      cooldown = 30.0;
     }
 
     if (cooldown > 0.0) cooldown -= 1.0;

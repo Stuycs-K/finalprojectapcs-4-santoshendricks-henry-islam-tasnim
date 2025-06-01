@@ -15,6 +15,17 @@ public Player(int team, PVector position, PVector speed, PVector direction, colo
   cooldown = 0;
 }
    public void tick(Field field) {
+     // Check if hit by a bullet or polygon
+     for (int i = 0; i < field.objects.size(); i++) {
+       AFieldObject obj = field.objects.get(i);// get object from list
+       
+       if (obj.getType() == TYPE_BULLET && obj.getTeam() != getTeam()) {
+         if (isTouching(obj)) { // isTouching autmatically applies damage, check Bullet code
+           field.get(i).takeDamage(10); //"kills" bullet
+         }
+       }
+     }
+     
      if (getTeam() == TEAM_USER)  {
        tickUser(field);
      } else {
@@ -28,7 +39,7 @@ public Player(int team, PVector position, PVector speed, PVector direction, colo
      PVector newDirection = PVector.sub(mousePos, getPosition());
      setDirection(newDirection);
      
-     setPosition(
+     tickPos();
    }
    private void tickEnemy(Field field) {}
 

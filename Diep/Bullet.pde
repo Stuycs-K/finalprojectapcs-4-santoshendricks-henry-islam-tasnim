@@ -2,7 +2,7 @@ class Bullet extends AFieldObject {
   private int dmg;
   
   public Bullet(int team, PVector position, PVector speed, PVector direction, color objColor, int size, int dmg) {
-    super(TYPE_BULLET, team, position, speed, direction, 0, objColor, size);
+    super(TYPE_BULLET, team, position, speed, direction, 1, objColor, size);
     this.dmg = dmg;
   }
   
@@ -11,22 +11,26 @@ class Bullet extends AFieldObject {
     circle((float)getX(), (float)getY(), (float)getSize());
   }
   
-  public void tick() {
-    getPosition().add(getSpeed());
-    if (isVisible()) {
-      render();
-    }
+  public void tick(Field field) {
+    tickPos();
   }
   
   public boolean isTouching(AFieldObject other) {
     if (other.getType() == TYPE_PLAYER) {
-      return distanceTo(other) <= getSize() + other.getSize();
+      if (distanceTo(other) <= getSize() + other.getSize()) {
+        other.takeDamage(dmg);
+        return true;
+      }
     }
     if (other.getType() == TYPE_BULLET) {
       return distanceTo(other) <= getSize() + other.getSize();
     }
     
     return false;
+  }
+  
+  public int getDmg() {
+    return dmg;
   }
   
 }

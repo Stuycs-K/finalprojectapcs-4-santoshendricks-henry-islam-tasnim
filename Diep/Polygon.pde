@@ -10,7 +10,40 @@ class Polygon extends AFieldObject {
    
  }
   
-  public boolean isTouching(AFieldObject other) { return true;}
-  
-  public void render(){}
+public boolean isTouching(AFieldObject other) {
+  return PVector.dist(getPosition(), other.getPosition()) <= getSize() + other.getSize();
+}
+
+public void render() {
+  fill(getColor());
+  stroke(0);
+  float angle = TWO_PI / type;
+  beginShape();
+  for (int i = 0; i < type; i++) {
+    float sx = getPosition().x + cos(angle * i) * getSize();
+    float sy = getPosition().y + sin(angle * i) * getSize();
+    vertex(sx, sy);
+  }
+  endShape(CLOSE);
+}
+
+public void tick(Field field) {
+  PVector pos = getPosition();
+  PVector vel = getSpeed();
+  pos.add(vel);
+  setPosition(pos);
+    // clamp inside world boundaries
+   pos = getPosition();
+   pos.x = constrain(pos.x, -field.fWidth/2, field.fWidth/2);
+   pos.y = constrain(pos.y, -field.fHeight/2, field.fHeight/2);
+
+   setPosition(pos);
+}
+public int getXPStored() { 
+
+  return xpStored; }
+
+
+
+
 }

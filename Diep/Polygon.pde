@@ -19,9 +19,21 @@ class Polygon extends AFieldObject {
    
  }
   
-public boolean isTouching(AFieldObject other) {
-  return PVector.dist(getPosition(), other.getPosition()) <= getSize() + other.getSize();
-}
+  public boolean isTouching(AFieldObject other) {
+    if (other.getType() == TYPE_PLAYER) {
+      if (distanceTo(other) <= getSize() + other.getSize()) {
+        other.takeDamage(3);
+        this.takeDamage(3);
+        System.out.println("took damage");
+        return true;
+      }
+    }
+    if (other.getType() == TYPE_BULLET) {
+      return distanceTo(other) <= getSize() + other.getSize();
+    }
+    
+    return false;
+  }
 
 public void render() {
   fill(getColor());

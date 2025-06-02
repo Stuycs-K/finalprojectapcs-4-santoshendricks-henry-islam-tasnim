@@ -12,12 +12,17 @@ class Player extends AFieldObject {
   private final int ENEMY_STRAFE = 1;
   private final int ENEMY_CHARGE = 2;
   private final int ENEMY_RETREAT = 3;
+  private final int ENEMY_BACK_UP = 4;
   private final int[] ENEMY_CHOICES = {ENEMY_STRAFE, ENEMY_CHARGE, ENEMY_RETREAT};
   private double modeCooldown;
+  private double strafeCooldown;
+  private boolean strafingRight;
   private final double VISION_RADIUS = 1000;
+  private final double MIN_FIGHTING_DIST = 200;
+  private double backupDistance;
   
   // Down here are special attributes for powerups
-  private double speedStat;
+  private float speedStat;
    
   public Player(int team, PVector position, PVector speed, PVector direction, color objColor, int size, String nameP) {
     super(0, team, position, speed, direction, 100, objColor, size);
@@ -28,7 +33,10 @@ class Player extends AFieldObject {
     cooldown = 0.0;
     enemyMode = ENEMY_PEACEFUL;
     target = null;
-    speedStat = 1.0;
+    speedStat = 5.0;
+    strafeCooldown = 60.0;
+    strafingRight = true;
+    backupDistance = 400;
   }
 
   public void tick(Field field) {
@@ -47,6 +55,7 @@ class Player extends AFieldObject {
       tickUser(field);
     } else {
       tickEnemy(field);
+      //text(enemyMode, 100, 100);
     }
   }
 
@@ -70,7 +79,7 @@ class Player extends AFieldObject {
     if (field.dKey) {
       newSpeed.add(new PVector(1.0, 0.0));
     }
-    setSpeed(newSpeed);
+    setSpeed(newSpeed.normalize().mult(speedStat));
     
     // Check if you should shoot
     if (field.mouseDown && cooldown <= 0.0) {
@@ -96,15 +105,105 @@ class Player extends AFieldObject {
         if (distanceTo(objects.get(i)) <= VISION_RADIUS && objects.get(i).getType() == TYPE_PLAYER && objects.get(i).getTeam() != getTeam()) {
           // lock onto target
           target = objects.get(i);
-          enemyMode = (int)(Math.random() * (ENEMY_CHOICES.length - 1));
+          enemyMode = ENEMY_CHOICES[(int)(Math.random() * (ENEMY_CHOICES.length - 1))];
           modeCooldown = (Math.random() * 120 + 180);
-          i = objects.size();
+          i = objects.size(); // Breaks out of loop
         }
       }
+      // Player takes priority
+      if (distanceTo(field.user) <= VISION_RADIUS) {
+        target = field.user;
+        enemyMode = ENEMY_CHOICES[(int)(Math.random() * (ENEMY_CHOICES.length - 1))];
+        modeCooldown = (Math.random() * 120 + 180);
+      }
+      
+    } else if (enemyMode == ENEMY_STRAFE) {
+      if (strafingRight) { // Switching between left and right strafe
+        PVector newDir = PVector.sub(target.getPosition(), getPosition());
+        setDirection(newDir);
+        PVector newSpeed = new PVector(getDirection().y, -getDirection().x);
+        if (distanceTo(target) >= MIN_FIGHTING_DIST) {
+          newSpeed.add(getDirection());
+        } else {
+          enemyMode = ENEMY_BACK_UP;
+        }
+        newSpeed.normalize().mult(speedStat);
+        setSpeed(newSpeed);
+        
+        strafeCooldown -= 1.0;
+        if (strafeCooldown <= 0.0) {
+          strafingRight = false; //Flip strafe direction
+          strafeCooldown = 60.0;
+        }
+      } else {
+        PVector newDir = PVector.sub(target.getPosition(), getPosition());
+        setDirection(newDir);
+        PVector newSpeed = new PVector(-getDirection().y, getDirection().x);
+        if (distanceTo(target) >= MIN_FIGHTING_DIST) {
+          newSpeed.add(getDirection());
+        } else {
+          enemyMode = ENEMY_BACK_UP;
+        }
+        newSpeed.normalize().mult(speedStat);
+        setSpeed(newSpeed);
+        
+        strafeCooldown -= 1.0;
+        if (strafeCooldown <= 0.0) {
+          strafingRight = true;
+          strafeCooldown = 60.0;
+        }
+      }
+      // Shoot!
+      if(cooldown <= 0.0) {
+        shoot(field);
+        cooldown = 30.0;
+      }
+      
+      if (modeCooldown <= 0.0) {
+        enemyMode = ENEMY_CHOICES[(int)(Math.random() * (ENEMY_CHOICES.length - 1))];
+        modeCooldown = (Math.random() * 120 + 180);
+      }
+      
+    } else if (enemyMode == ENEMY_CHARGE) {
+      PVector newDir = PVector.sub(target.getPosition(), getPosition());
+      setDirection(newDir);
+      PVector newSpeed = PVector.mult(getDirection(), speedStat);
+      setSpeed(newSpeed);
+      
+      //Shoot!
+      if(cooldown <= 0.0) {
+        shoot(field);
+        cooldown = 30.0;
+      }
+      
+      if (modeCooldown <= 0.0) {
+        enemyMode = ENEMY_CHOICES[(int)(Math.random() * (ENEMY_CHOICES.length - 1))];
+        modeCooldown = (Math.random() * 120 + 180);
+      }
+      if (distanceTo(target) <= MIN_FIGHTING_DIST) {
+          enemyMode = ENEMY_BACK_UP;
+      }
+    } else if (enemyMode == ENEMY_BACK_UP) {
+      if (distanceTo(target) <= backupDistance) {
+        PVector newDir = PVector.sub(target.getPosition(), getPosition());
+        setDirection(newDir);
+        PVector newSpeed = PVector.mult(getDirection(), -speedStat);
+        setSpeed(newSpeed);
+      } else {
+        enemyMode = ENEMY_CHOICES[(int)(Math.random() * (ENEMY_CHOICES.length - 1))];
+        modeCooldown = (Math.random() * 120 + 180);
+        backupDistance = (Math.random() * 300 + 300);
+      }
     }
+      
+      
+      
     
     tickPos(field);
-    modeCooldown -= 1.0;
+    if (modeCooldown > 0.0) {
+      modeCooldown -= 1.0;
+    }
+    if (cooldown > 0.0) cooldown -= 1.0;
   }
   
   private void shoot(Field field) {

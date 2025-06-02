@@ -91,7 +91,7 @@ setDirection(newDirection);
     }
 
     if (cooldown > 0.0) cooldown -= 1.0;
-    tickPos();
+    tickPos(field);
 
     // clamp inside world boundaries
     PVector pos = getPosition();

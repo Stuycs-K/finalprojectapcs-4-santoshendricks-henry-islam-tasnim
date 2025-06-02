@@ -16,7 +16,7 @@ void setup() {
   size(1200, 900);
   menu = new MainMenu();
   globalField = new Field(10000, 10000);
-  Player e0 = new Player(2, new PVector(1000, 700), new PVector(0, 0), new PVector(0, 0), color(150, 0, 0), PLAYER_START_SIZE, "Enemy 1");
+  Player e0 = new Player(2, new PVector(4800, 4800), new PVector(0, 0), new PVector(0, 0), color(150, 0, 0), PLAYER_START_SIZE, "Enemy 1");
   globalField.addObj(e0);
 }
 
@@ -43,8 +43,8 @@ void draw() {
 
 
 
-    for (AFieldObject obj : globalField.objects) {
-      obj.tick(globalField);
+    for (int i = 0; i < globalField.objects.size(); i++) {
+      globalField.objects.get(i).tick(globalField);
     }
     globalField.user.tick(globalField);
 

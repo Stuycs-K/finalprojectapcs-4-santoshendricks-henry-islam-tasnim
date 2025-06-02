@@ -1,6 +1,6 @@
 import java.util.*;
 
-static final int PLAYER_START_SIZE = 100;
+static final int PLAYER_START_SIZE = 50;
 
 static final int TYPE_PLAYER = 0;
 static final int TYPE_BULLET = 1;
@@ -16,6 +16,8 @@ void setup() {
   size(1200, 900);
   menu = new MainMenu();
   globalField = new Field(10000, 10000);
+  Player e0 = new Player(2, new PVector(1000, 700), new PVector(0, 0), new PVector(0, 0), color(150, 0, 0), PLAYER_START_SIZE, "Enemy 1");
+  globalField.addObj(e0);
 }
 
 

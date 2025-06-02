@@ -10,7 +10,7 @@ class MainMenu {
     playerName = "";
     startClicked = false;
     buttonWidth = width * 0.2;
-    buttonHeight = height * 0.1;
+    buttonHeight = height * 0.1;  
     buttonPos = new PVector(width / 2 - buttonWidth / 2, height / 2);
     nameActive = false;
   }

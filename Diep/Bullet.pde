@@ -12,7 +12,7 @@ class Bullet extends AFieldObject {
   }
   
   public void tick(Field field) {
-    tickPos();
+    tickPos(field);
   }
   
   public boolean isTouching(AFieldObject other) {

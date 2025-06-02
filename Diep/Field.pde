@@ -26,4 +26,5 @@ class Field {
   public boolean remObj(AFieldObject obj) {
     return objects.remove(obj);
   }
+  
 }

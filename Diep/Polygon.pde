@@ -27,6 +27,12 @@ public void render() {
   endShape(CLOSE);
 }
 
+  public void tick() {
+    PVector pos = getPosition();
+    PVector vel = getSpeed();
+    pos.add(vel);
+    setPosition(pos);
+  }
 public int getXPStored() { 
 
   return xpStored; }

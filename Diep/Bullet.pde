@@ -50,6 +50,12 @@ public void tick(Field field) {
     if (other.getType() == TYPE_BULLET) {
       return distanceTo(other) <= getSize() + other.getSize();
     }
+    if (other.getType() == TYPE_POLY) {
+      if (distanceTo(other) <= getSize() + other.getSize()) {
+        other.takeDamage(dmg);
+        takeDamage(10);
+      }
+    }
     
     return false;
   }

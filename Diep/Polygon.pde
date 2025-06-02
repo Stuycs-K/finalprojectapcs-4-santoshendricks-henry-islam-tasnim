@@ -1,9 +1,10 @@
 class Polygon extends AFieldObject {
  private int type;
  private int xpStored;
+ private float cooldown;
  
  public Polygon(int team, PVector position, PVector speed, PVector direction, color objColor, int size,int type, int xPt) {
-   super(TYPE_POLY, TEAM_POLY, position, speed, direction, 1000000000, objColor, size);
+   super(TYPE_POLY, TEAM_POLY, position, speed, direction, 100, objColor, size);
    xpStored = xPt;
     if (type == 3) {  
       this.type = 5;
@@ -15,6 +16,7 @@ class Polygon extends AFieldObject {
       this.type = 3;
       xpStored = 20;
     } 
+    cooldown = -1.0;
   
    
  }
@@ -22,14 +24,19 @@ class Polygon extends AFieldObject {
   public boolean isTouching(AFieldObject other) {
     if (other.getType() == TYPE_PLAYER) {
       if (distanceTo(other) <= getSize() + other.getSize()) {
-        other.takeDamage(3);
-        this.takeDamage(3);
-        System.out.println("took damage");
+        if (cooldown <= 0.0) {
+          other.takeDamage(5);
+          this.takeDamage(5);
+          cooldown = 40.0;
+          System.out.println("took damage");
+        }
         return true;
       }
     }
     if (other.getType() == TYPE_BULLET) {
-      return distanceTo(other) <= getSize() + other.getSize();
+      if (distanceTo(other) <= getSize() + other.getSize()) {
+        other.isTouching(this);
+      }
     }
     
     return false;
@@ -46,7 +53,7 @@ public void render() {
     vertex(sx, sy);
   }
   endShape(CLOSE);
-  System.out.println(type);
+  //System.out.println(type);
 }
 
 public void tick(Field field) {
@@ -58,7 +65,16 @@ public void tick(Field field) {
    pos = getPosition();
    pos.x = constrain(pos.x, -field.fWidth/2, field.fWidth/2);
    pos.y = constrain(pos.y, -field.fHeight/2, field.fHeight/2);
+   
+   // check if touching player or bullet
+   for (int i = 0; i < field.objects.size(); i++) {
+       isTouching(field.objects.get(i));
+           
+   }
+   isTouching(field.user);
 
+  if (cooldown > 0.0) cooldown -= 1.0;
+  //System.out.println(cooldown);
    setPosition(pos);
 }
 public int getXPStored() { 

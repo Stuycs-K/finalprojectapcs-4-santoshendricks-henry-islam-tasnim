@@ -33,14 +33,6 @@ abstract class AFieldObject {
   
   public void tickPos(Field field) {
     position.add(speed);
-    position.x = clamp(position.x, -field.fWidth / 2.0, field.fWidth / 2.0);
-    position.y = clamp(position.y, -field.fHeight / 2.0, field.fHeight / 2.0);
-  }
-  
-  private float clamp(float val, float min, float max) {
-    if (val > max) return max;
-    if (val < min) return min;
-    return val;
   }
   
   public double distanceTo(AFieldObject other) {

@@ -203,12 +203,20 @@ setDirection(newDirection);
         modeCooldown = (Math.random() * 120 + 180);
         backupDistance = (Math.random() * 300 + 300);
       }
+      
     }
       
       
       
     
     tickPos(field);
+        // clamp inside world boundaries
+    PVector pos = getPosition();
+    pos.x = constrain(pos.x, -field.fWidth/2, field.fWidth/2);
+    pos.y = constrain(pos.y, -field.fHeight/2, field.fHeight/2);
+
+    setPosition(pos);
+    
     if (modeCooldown > 0.0) {
       modeCooldown -= 1.0;
     }

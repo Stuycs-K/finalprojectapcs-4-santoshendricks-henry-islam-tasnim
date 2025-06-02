@@ -35,10 +35,12 @@ class Player extends AFieldObject {
   }
 
   private void tickUser(Field field) {
-    // Point at mouse
-    PVector mousePos = new PVector(mouseX, mouseY);
-    PVector newDirection = PVector.sub(mousePos, getPosition());
-    setDirection(newDirection);
+    PVector mouseWorld = new PVector(
+  mouseX - width/2 + getPosition().x,
+  mouseY - height/2 + getPosition().y
+);
+PVector newDirection = PVector.sub(mouseWorld, getPosition());
+setDirection(newDirection);
 
     // check keyboard WASD
     PVector newSpeed = new PVector(0.0, 0.0);

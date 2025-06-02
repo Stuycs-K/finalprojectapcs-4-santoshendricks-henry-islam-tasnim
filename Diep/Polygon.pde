@@ -27,12 +27,18 @@ public void render() {
   endShape(CLOSE);
 }
 
-  public void tick() {
-    PVector pos = getPosition();
-    PVector vel = getSpeed();
-    pos.add(vel);
-    setPosition(pos);
-  }
+public void tick(Field field) {
+  PVector pos = getPosition();
+  PVector vel = getSpeed();
+  pos.add(vel);
+  setPosition(pos);
+    // clamp inside world boundaries
+   pos = getPosition();
+   pos.x = constrain(pos.x, -field.fWidth/2, field.fWidth/2);
+   pos.y = constrain(pos.y, -field.fHeight/2, field.fHeight/2);
+
+   setPosition(pos);
+}
 public int getXPStored() { 
 
   return xpStored; }

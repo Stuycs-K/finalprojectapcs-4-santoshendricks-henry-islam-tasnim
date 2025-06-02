@@ -50,8 +50,17 @@ void draw() {
 
     for (int i = 0; i < globalField.objects.size(); i++) {
       if (globalField.objects.get(i).getHp() <= 0) {
-        globalField.remObj(globalField.objects.get(i));
-        i--;
+        //globalField.remObj(globalField.objects.get(i));
+        
+        //i--;
+        
+        AFieldObject obj = globalField.objects.get(i);
+        if (obj.getType() == TYPE_BULLET) {
+          globalField.remObj(obj);
+        } else {
+          globalField.objects.get(i).setPosition(new PVector((float)Math.random() * globalField.fWidth - globalField.fWidth / 2, (float)Math.random() * globalField.fHeight - globalField.fHeight / 2));
+          globalField.objects.get(i).setHp(100);
+        }
       } else {
         globalField.objects.get(i).render();
       }

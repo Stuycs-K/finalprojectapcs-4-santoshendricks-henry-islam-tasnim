@@ -37,7 +37,7 @@ public void tick(Field field) {
     if (other.getType() == TYPE_PLAYER) {
       if (distanceTo(other) <= getSize() + other.getSize()) {
         other.takeDamage(dmg);
-        System.out.println("took damage");
+        //System.out.println("took damage");
         return true;
       }
     }

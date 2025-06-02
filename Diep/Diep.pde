@@ -15,7 +15,8 @@ boolean gameStarted = false;
 void setup() {
   size(1200, 900);
   menu = new MainMenu();
-  globalField = new Field(10000, 10000);
+  System.out.println(menu.getPlayerName());
+  globalField = new Field(10000, 10000, menu.getPlayerName());
   Player e0 = new Player(2, new PVector(4800, 4800), new PVector(0, 0), new PVector(0, 0), color(150, 0, 0), PLAYER_START_SIZE, "Enemy 1");
   globalField.addObj(e0);
 }

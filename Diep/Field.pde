@@ -9,8 +9,8 @@ class Field {
   boolean dKey;
   boolean mouseDown;
   
-  public Field(int w, int h) {
-    user = new Player(TEAM_USER, new PVector(w/2, h/2), new PVector(0, 0), new PVector(0, 1), color(0, 0, 100), PLAYER_START_SIZE, "");
+  public Field(int w, int h, String name) {
+    user = new Player(TEAM_USER, new PVector(w/2, h/2), new PVector(0, 0), new PVector(0, 1), color(0, 0, 100), PLAYER_START_SIZE, name);
     objects = new ArrayList<AFieldObject>();
     fWidth = w;
     fHeight = h;

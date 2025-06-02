@@ -203,6 +203,10 @@ setDirection(newDirection);
         modeCooldown = (Math.random() * 120 + 180);
         backupDistance = (Math.random() * 300 + 300);
       }
+      if(cooldown <= 0.0) {
+        shoot(field);
+        cooldown = 30.0;
+      }
       
     }
       
@@ -276,5 +280,7 @@ public void render() {
   rectMode(CENTER);
   rect(barrelLength / 2, 0, barrelLength, barrelWidth);
   popMatrix();
+  
+  text(name, (float)getX(), (float)getY() - getSize() - 15);
 }
 }

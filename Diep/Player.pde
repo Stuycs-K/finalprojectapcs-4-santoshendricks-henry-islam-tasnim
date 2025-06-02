@@ -5,6 +5,19 @@ class Player extends AFieldObject {
   private int tankClass;
   private int teams;
   private double cooldown;
+  
+  private int enemyMode;
+  private AFieldObject target;
+  private final int ENEMY_PEACEFUL = 0;
+  private final int ENEMY_STRAFE = 1;
+  private final int ENEMY_CHARGE = 2;
+  private final int ENEMY_RETREAT = 3;
+  private final int[] ENEMY_CHOICES = {ENEMY_STRAFE, ENEMY_CHARGE, ENEMY_RETREAT};
+  private double modeCooldown;
+  private final double VISION_RADIUS = 1000;
+  
+  // Down here are special attributes for powerups
+  private double speedStat;
    
   public Player(int team, PVector position, PVector speed, PVector direction, color objColor, int size, String nameP) {
     super(0, team, position, speed, direction, 100, objColor, size);
@@ -13,6 +26,9 @@ class Player extends AFieldObject {
     tankClass = 0;
     name = nameP;  // (or replace with String if you plan to fix name type)
     cooldown = 0.0;
+    enemyMode = ENEMY_PEACEFUL;
+    target = null;
+    speedStat = 1.0;
   }
 
   public void tick(Field field) {
@@ -64,10 +80,31 @@ class Player extends AFieldObject {
     }
 
     if (cooldown > 0.0) cooldown -= 1.0;
-    tickPos();
+    tickPos(field);
   }
   
   private void tickEnemy(Field field) {
+    if (enemyMode == ENEMY_PEACEFUL) {
+      // Keep moving in a random direction or switch direction
+      if (modeCooldown <= 0.0) {
+        double angle = Math.random() * 2 * Math.PI;
+        setSpeed(new PVector((float)(speedStat * Math.cos(angle)), (float)(speedStat * Math.sin(angle))));
+        modeCooldown = (Math.random() * 120 + 180);
+      }
+      ArrayList<AFieldObject> objects = field.objects;
+      for (int i = 0; i < objects.size(); i++) {
+        if (distanceTo(objects.get(i)) <= VISION_RADIUS && objects.get(i).getType() == TYPE_PLAYER && objects.get(i).getTeam() != getTeam()) {
+          // lock onto target
+          target = objects.get(i);
+          enemyMode = (int)(Math.random() * (ENEMY_CHOICES.length - 1));
+          modeCooldown = (Math.random() * 120 + 180);
+          i = objects.size();
+        }
+      }
+    }
+    
+    tickPos(field);
+    modeCooldown -= 1.0;
   }
   
   private void shoot(Field field) {

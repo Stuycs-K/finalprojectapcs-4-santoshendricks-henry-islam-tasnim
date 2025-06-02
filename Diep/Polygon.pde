@@ -3,16 +3,16 @@ class Polygon extends AFieldObject {
  private int xpStored;
  
  public Polygon(int team, PVector position, PVector speed, PVector direction, color objColor, int size,int type, int xPt) {
-   super(2, 0, position, speed, direction, 1000000000, objColor, size);
+   super(TYPE_POLY, TEAM_POLY, position, speed, direction, 1000000000, objColor, size);
    xpStored = xPt;
     if (type == 3) {  
-      type = 5;
+      this.type = 5;
       xpStored = 5;
     } else if (type == 2) {  // Square
-      type = 4;
+      this.type = 4;
       xpStored = 10;
     } else { 
-      type = 3;
+      this.type = 3;
       xpStored = 20;
     } 
   
@@ -37,7 +37,7 @@ class Polygon extends AFieldObject {
 
 public void render() {
   fill(getColor());
-  stroke(0);
+  stroke(10);
   float angle = TWO_PI / type;
   beginShape();
   for (int i = 0; i < type; i++) {
@@ -46,6 +46,7 @@ public void render() {
     vertex(sx, sy);
   }
   endShape(CLOSE);
+  System.out.println(type);
 }
 
 public void tick(Field field) {

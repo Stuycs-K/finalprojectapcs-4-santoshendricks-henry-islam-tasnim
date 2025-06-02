@@ -207,7 +207,7 @@ class Player extends AFieldObject {
   }
   
   private void shoot(Field field) {
-    Bullet newBullet = new Bullet(getTeam(), getPosition(), PVector.mult(getDirection(), 10.0), getDirection(), getColor(), 20, 10);
+    Bullet newBullet = new Bullet(getTeam(), getPosition(), PVector.mult(getDirection(), 10.0), getDirection(), getColor(), 20, 10, 120.0);
     field.addObj(newBullet);
   }
 

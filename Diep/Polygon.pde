@@ -3,7 +3,7 @@ class Polygon extends AFieldObject {
  private int xpStored;
  
  public Polygon(int team, PVector position, PVector speed, PVector direction, color objColor, int size,int type, int xPt) {
-   super(2, 0, position, speed, direction, 100, objColor, size);
+   super(2, 0, position, speed, direction, 1000000000, objColor, size);
    xpStored = xPt;
     if (type == 3) {  
       type = 5;

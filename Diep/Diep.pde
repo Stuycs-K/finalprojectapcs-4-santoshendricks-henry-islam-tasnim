@@ -25,6 +25,10 @@ void setup() {
     Player e = new Player(i + 2, new PVector((float)Math.random() * globalField.fWidth - globalField.fWidth / 2, (float)Math.random() * globalField.fHeight - globalField.fHeight / 2), new PVector(0, 0), new PVector(0, 0), color(150, 0, 0), PLAYER_START_SIZE, "Enemy " + (i+1));
     globalField.addObj(e);
   }
+  for (int i = 0; i < 200; i++) {
+    Polygon e = new Polygon(TEAM_POLY, new PVector((float)Math.random() * globalField.fWidth - globalField.fWidth / 2, (float)Math.random() * globalField.fHeight - globalField.fHeight / 2), new PVector(0, 0), new PVector(0, 0), color(150, 150, 0), PLAYER_START_SIZE, (int)(Math.random() * 3 + 1), 10);
+    globalField.addObj(e);
+  }
 }
 
 

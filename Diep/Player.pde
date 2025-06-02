@@ -45,7 +45,7 @@ class Player extends AFieldObject {
       AFieldObject obj = field.objects.get(i);// get object from list
 
       if (obj.getType() == TYPE_BULLET && obj.getTeam() != getTeam()) {
-        if (isTouching(obj)) { // isTouching autmatically applies damage, check Bullet code
+        if (obj.isTouching(this)) { // isTouching autmatically applies damage, check Bullet code
           globalField.objects.get(i).takeDamage(10); //"kills" bullet
         }
       }
@@ -55,7 +55,7 @@ class Player extends AFieldObject {
       tickUser(field);
     } else {
       tickEnemy(field);
-      //text(enemyMode, 100, 100);
+      //text(getHp(), 100, 100);
     }
   }
 
@@ -224,7 +224,7 @@ setDirection(newDirection);
   }
   
   private void shoot(Field field) {
-    Bullet newBullet = new Bullet(getTeam(), getPosition(), PVector.mult(getDirection(), 10.0), getDirection(), getColor(), 20, 5);
+    Bullet newBullet = new Bullet(getTeam(), getPosition(), PVector.mult(getDirection(), 10.0), getDirection(), getColor(), 20, 10, 120.0);
     field.addObj(newBullet);
   }
 

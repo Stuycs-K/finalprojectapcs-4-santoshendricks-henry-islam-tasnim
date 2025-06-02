@@ -10,8 +10,7 @@ class Field {
   boolean mouseDown;
   
   public Field(int w, int h) {
-    user = new Player(TEAM_USER, new PVector(300, 300), new PVector(0, 0), new PVector(0, 1), color(0, 0, 100), PLAYER_START_SIZE, ""); // Write player constructor
-    
+    user = new Player(TEAM_USER, new PVector(w/2, h/2), new PVector(0, 0), new PVector(0, 1), color(0, 0, 100), PLAYER_START_SIZE, "");
     objects = new ArrayList<AFieldObject>();
     fWidth = w;
     fHeight = h;

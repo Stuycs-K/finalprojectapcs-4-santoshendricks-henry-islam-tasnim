@@ -60,10 +60,12 @@ class Player extends AFieldObject {
   }
 
   private void tickUser(Field field) {
-    // Point at mouse
-    PVector mousePos = new PVector(mouseX, mouseY);
-    PVector newDirection = PVector.sub(mousePos, getPosition());
-    setDirection(newDirection);
+    PVector mouseWorld = new PVector(
+  mouseX - width/2 + getPosition().x,
+  mouseY - height/2 + getPosition().y
+);
+PVector newDirection = PVector.sub(mouseWorld, getPosition());
+setDirection(newDirection);
 
     // check keyboard WASD
     PVector newSpeed = new PVector(0.0, 0.0);
@@ -90,6 +92,13 @@ class Player extends AFieldObject {
 
     if (cooldown > 0.0) cooldown -= 1.0;
     tickPos(field);
+
+    // clamp inside world boundaries
+    PVector pos = getPosition();
+    pos.x = constrain(pos.x, -field.fWidth/2, field.fWidth/2);
+    pos.y = constrain(pos.y, -field.fHeight/2, field.fHeight/2);
+
+    setPosition(pos);
   }
   
   private void tickEnemy(Field field) {
@@ -236,11 +245,28 @@ class Player extends AFieldObject {
     return PVector.sub(this.getPosition(), other.getPosition()).mag();
   }
 
-  public void render() {
-    fill(100, 100, 100);
-    rect(getPosition().x + getDirection().x * getSize() / 2, getPosition().y + getDirection().y * getSize() / 2, getSize(), getSize());
+public void render() {
+  PVector pos = getPosition();
+  PVector dir = getDirection();
 
-    fill(getColor());
-    circle(getPosition().x, getPosition().y, getSize());
-  }
+  // draw body first
+  fill(getColor());
+  noStroke();
+  circle(pos.x, pos.y, getSize());
+
+  // draw barrel
+  float barrelLength = getSize() * 1.2;
+  float barrelWidth = getSize() * 0.3f;
+
+  // calculate barrel rectangle center
+  float angle = atan2(dir.y, dir.x);
+  
+  pushMatrix();
+  translate(pos.x, pos.y);
+  rotate(angle);
+  fill(100);
+  rectMode(CENTER);
+  rect(barrelLength / 2, 0, barrelLength, barrelWidth);
+  popMatrix();
+}
 }

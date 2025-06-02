@@ -19,6 +19,7 @@ class Bullet extends AFieldObject {
     if (other.getType() == TYPE_PLAYER) {
       if (distanceTo(other) <= getSize() + other.getSize()) {
         other.takeDamage(dmg);
+        System.out.println("took damage");
         return true;
       }
     }

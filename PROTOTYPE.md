@@ -27,6 +27,12 @@ Polygons will float around that give xp upon breaking but damage the players on 
 
 Enemies will be given basic decision making skills. While the project may be expanded further, this will involve detecting incoming bullets and moving away from them, detecting players and strafe shooting at them, shooting at polygons, and selecting class upgrades when they appear.
 
+Plan for bot AI:
+
+If a bot is peaceful (not locked onto a target): heads in a randomised direction for a random amount of timescans every tick for targets. If something comes within view (a certain radius), it selects it as a target and enters one of the battle modes. If the target dies or leaves view, the bot will randomly select a new visible target, or go peaceful if there is no enemy in sight.
+
+Battle modes: the bot will either strafe (go towards the target while moving back and forth perpendicular to the line of sight to the target) or charge (go sraight to the target and shoot). Each mode will last 3-5 seconds before it is randomised again. If the bot's health gets too low, it will have a chance to retreat, running away from the target.
+
 ![First UML](Prototype0-1.PNG)
 New UML
 ![Second UML](Prototype.PNG)

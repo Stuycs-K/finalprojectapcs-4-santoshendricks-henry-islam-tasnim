@@ -289,6 +289,6 @@ public void render() {
   rect(barrelLength / 2, 0, barrelLength, barrelWidth);
   popMatrix();
   
-  text(name, (float)getX(), (float)getY() - getSize() - 15);
+  text("" + getX() + " " + getY(), (float)getX(), (float)getY() - getSize() - 15);
 }
 }

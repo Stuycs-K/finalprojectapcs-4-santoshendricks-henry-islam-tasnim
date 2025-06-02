@@ -230,7 +230,7 @@ setDirection(newDirection);
       modeCooldown -= 1.0;
     }
     if (cooldown > 0.0) cooldown -= 1.0;
-    if (target.getHp() <= 0 || distanceTo(target) > VISION_RADIUS) {
+    if (target == null || target.getHp() <= 0 || distanceTo(target) > VISION_RADIUS) {
       enemyMode = ENEMY_PEACEFUL;
     }
   }
@@ -289,6 +289,6 @@ public void render() {
   rect(barrelLength / 2, 0, barrelLength, barrelWidth);
   popMatrix();
   
-  text("" + getX() + " " + getY(), (float)getX(), (float)getY() - getSize() - 15);
+  text(name, (float)getX(), (float)getY() - getSize() - 15);
 }
 }

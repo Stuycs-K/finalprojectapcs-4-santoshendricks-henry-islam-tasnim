@@ -14,20 +14,8 @@ void setup() {
   size(1200, 900);
   menu = new MainMenu();
   System.out.println(menu.getPlayerName());
-  globalField = new Field(2000, 2000, menu.getPlayerName());
- // Player e0 = new Player(2, new PVector(4800, 4800), new PVector(0, 0), new PVector(0, 0), color(150, 0, 0), PLAYER_START_SIZE, "Enemy 1");
   
-  //globalField.addObj(e0);
-  
-  for (int i = 0; i < 20; i++) {
-    Player e = new Player(i + 2, new PVector((float)Math.random() * globalField.fWidth - globalField.fWidth / 2, (float)Math.random() * globalField.fHeight - globalField.fHeight / 2), new PVector(0, 0), new PVector(0, 0), color(150, 0, 0), PLAYER_START_SIZE, "Enemies " + (i+1));
-    globalField.addObj(e);
-  }
-  for (int i = 0; i < 200; i++) {
-    Polygon e = new Polygon(TEAM_POLY, new PVector((float)Math.random() * globalField.fWidth - globalField.fWidth / 2, (float)Math.random() * globalField.fHeight - globalField.fHeight / 2), new PVector(0, 0), new PVector(0, 0), color(150, 150, 0), PLAYER_START_SIZE, (int)(Math.random() * 3 + 1), 10);
-    globalField.addObj(e);
-  }
-  System.out.println(globalField.objects.size());
+  //System.out.println(globalField.objects.size());
 }
 
 
@@ -81,9 +69,19 @@ void mousePressed() {
     menu.handleClick(mouseX, mouseY);
     if (menu.isStartPressed()) {
       // NOW we create the field after player typed name
-      globalField = new Field(10000, 10000, menu.getPlayerName());
-      Player e0 = new Player(2, new PVector(4800, 4800), new PVector(0, 0), new PVector(0, 0), color(150, 0, 0), PLAYER_START_SIZE, "Enemy 1");
-      globalField.addObj(e0);
+      globalField = new Field(2000, 2000, menu.getPlayerName());
+ // Player e0 = new Player(2, new PVector(4800, 4800), new PVector(0, 0), new PVector(0, 0), color(150, 0, 0), PLAYER_START_SIZE, "Enemy 1");
+  
+  //globalField.addObj(e0);
+  
+  for (int i = 0; i < 20; i++) {
+    Player e = new Player(i + 2, new PVector((float)Math.random() * globalField.fWidth - globalField.fWidth / 2, (float)Math.random() * globalField.fHeight - globalField.fHeight / 2), new PVector(0, 0), new PVector(0, 0), color(150, 0, 0), PLAYER_START_SIZE, "Enemiesss " + (i+1));
+    globalField.addObj(e);
+  }
+  for (int i = 0; i < 20; i++) {
+    Polygon e = new Polygon(TEAM_POLY, new PVector((float)Math.random() * globalField.fWidth - globalField.fWidth / 2, (float)Math.random() * globalField.fHeight - globalField.fHeight / 2), new PVector(0, 0), new PVector(0, 0), color(150, 150, 0), PLAYER_START_SIZE/2, (int)(Math.random() * 3 + 1), 10);
+    globalField.addObj(e);
+  }
       gameStarted = true;
     }
   }
@@ -91,7 +89,9 @@ void mousePressed() {
 }
 
 void mouseReleased() {
-  globalField.mouseDown = false;
+  if (globalField != null) {
+    globalField.mouseDown = false;
+  }
 }
 
 void keyPressed() {

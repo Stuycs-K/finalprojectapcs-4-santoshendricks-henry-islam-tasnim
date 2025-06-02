@@ -33,10 +33,13 @@ void draw() {
 
     pushMatrix();
     applyCamera();  
-     noFill();
+    // world border
+    noFill();
     stroke(0);
     strokeWeight(5);
     rect(0, 0, globalField.fWidth, globalField.fHeight);
+
+
 
     for (AFieldObject obj : globalField.objects) {
       obj.tick(globalField);

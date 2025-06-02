@@ -16,9 +16,15 @@ void setup() {
   size(1200, 900);
   menu = new MainMenu();
   System.out.println(menu.getPlayerName());
-  globalField = new Field(10000, 10000, menu.getPlayerName());
-  Player e0 = new Player(2, new PVector(4800, 4800), new PVector(0, 0), new PVector(0, 0), color(150, 0, 0), PLAYER_START_SIZE, "Enemy 1");
-  globalField.addObj(e0);
+  globalField = new Field(2000, 2000, menu.getPlayerName());
+ // Player e0 = new Player(2, new PVector(4800, 4800), new PVector(0, 0), new PVector(0, 0), color(150, 0, 0), PLAYER_START_SIZE, "Enemy 1");
+  
+  //globalField.addObj(e0);
+  
+  for (int i = 0; i < 20; i++) {
+    Player e = new Player(i + 2, new PVector((float)Math.random() * globalField.fWidth - globalField.fWidth / 2, (float)Math.random() * globalField.fHeight - globalField.fHeight / 2), new PVector(0, 0), new PVector(0, 0), color(150, 0, 0), PLAYER_START_SIZE, "Enemy " + (i+1));
+    globalField.addObj(e);
+  }
 }
 
 

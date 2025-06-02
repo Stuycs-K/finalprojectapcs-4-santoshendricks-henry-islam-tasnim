@@ -99,6 +99,11 @@ setDirection(newDirection);
     pos.y = constrain(pos.y, -field.fHeight/2, field.fHeight/2);
 
     setPosition(pos);
+    
+    if (getHp() <= 0) {
+      setPosition(new PVector((float)Math.random() * -field.fWidth, (float)Math.random() * -field.fHeight));
+      setHp(100);
+    }
   }
   
   private void tickEnemy(Field field) {
@@ -225,6 +230,9 @@ setDirection(newDirection);
       modeCooldown -= 1.0;
     }
     if (cooldown > 0.0) cooldown -= 1.0;
+    if (target.getHp() <= 0 || distanceTo(target) > VISION_RADIUS) {
+      enemyMode = ENEMY_PEACEFUL;
+    }
   }
   
   private void shoot(Field field) {

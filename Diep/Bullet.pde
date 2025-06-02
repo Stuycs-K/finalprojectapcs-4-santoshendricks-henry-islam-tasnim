@@ -31,6 +31,12 @@ public void tick(Field field) {
       }
     }
   }
+  
+  // check if ran out of time
+  if (lifeTimer <= 0.0) {
+    takeDamage(10);
+  }
+  lifeTimer -= 1.0;
 }
   
   public boolean isTouching(AFieldObject other) {

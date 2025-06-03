@@ -13,7 +13,6 @@ boolean gameStarted = false;
 void setup() {
   size(1200, 900);
   menu = new MainMenu();
-  System.out.println(menu.getPlayerName());
   
   //System.out.println(globalField.objects.size());
 }

@@ -49,8 +49,17 @@ void draw() {
 
     for (int i = 0; i < globalField.objects.size(); i++) {
       if (globalField.objects.get(i).getHp() <= 0) {
-        globalField.remObj(globalField.objects.get(i));
-        i--;
+        //globalField.remObj(globalField.objects.get(i));
+        
+        //i--;
+        
+        AFieldObject obj = globalField.objects.get(i);
+        if (obj.getType() == TYPE_BULLET) {
+          globalField.remObj(obj);
+        } else {
+          globalField.objects.get(i).setPosition(new PVector((float)Math.random() * globalField.fWidth - globalField.fWidth / 2, (float)Math.random() * globalField.fHeight - globalField.fHeight / 2));
+          globalField.objects.get(i).setHp(100);
+        }
       } else {
         globalField.objects.get(i).render();
       }
@@ -68,7 +77,7 @@ void mousePressed() {
     menu.handleClick(mouseX, mouseY);
     if (menu.isStartPressed()) {
       // NOW we create the field after player typed name
-      globalField = new Field(2000, 2000, menu.getPlayerName());
+      globalField = new Field(2500, 2500, menu.getPlayerName());
  // Player e0 = new Player(2, new PVector(4800, 4800), new PVector(0, 0), new PVector(0, 0), color(150, 0, 0), PLAYER_START_SIZE, "Enemy 1");
   
   //globalField.addObj(e0);

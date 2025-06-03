@@ -93,7 +93,7 @@ setDirection(newDirection);
     if (cooldown > 0.0) cooldown -= 1.0;
     tickPos(field);
 
-    // clamp inside world boundaries
+    // clamp inside world boundaries 
     PVector pos = getPosition();
     pos.x = constrain(pos.x, -field.fWidth/2, field.fWidth/2);
     pos.y = constrain(pos.y, -field.fHeight/2, field.fHeight/2);

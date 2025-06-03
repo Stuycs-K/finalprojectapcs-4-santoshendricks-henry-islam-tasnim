@@ -115,18 +115,22 @@ setDirection(newDirection);
         modeCooldown = (Math.random() * 120 + 180);
       }
       ArrayList<AFieldObject> objects = field.objects;
+      ArrayList<AFieldObject> targetList = new ArrayList<AFieldObject>();
       for (int i = 0; i < objects.size(); i++) {
         if (distanceTo(objects.get(i)) <= VISION_RADIUS && objects.get(i).getType() == TYPE_PLAYER && objects.get(i).getTeam() != getTeam()) {
-          // lock onto target
-          target = objects.get(i);
-          enemyMode = ENEMY_CHOICES[(int)(Math.random() * (ENEMY_CHOICES.length - 1))];
-          modeCooldown = (Math.random() * 120 + 180);
-          i = objects.size(); // Breaks out of loop
+          // add target
+          targetList.add(objects.get(i));
         }
       }
-      // Player takes priority
+      // Player takes noa priority
       if (distanceTo(field.user) <= VISION_RADIUS) {
-        target = field.user;
+        
+        targetList.add(field.user);
+        
+      }
+      
+      if (targetList.size() > 0) {
+        target = targetList.get((int)(Math.random() * targetList.size()));
         enemyMode = ENEMY_CHOICES[(int)(Math.random() * (ENEMY_CHOICES.length - 1))];
         modeCooldown = (Math.random() * 120 + 180);
       }

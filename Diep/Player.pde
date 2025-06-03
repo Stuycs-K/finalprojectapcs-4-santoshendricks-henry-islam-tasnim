@@ -17,7 +17,7 @@ class Player extends AFieldObject {
   private double modeCooldown;
   private double strafeCooldown;
   private boolean strafingRight;
-  private final double VISION_RADIUS = 1000;
+  private final double VISION_RADIUS = 1;
   private final double MIN_FIGHTING_DIST = 200;
   private double backupDistance;
   
@@ -37,6 +37,7 @@ class Player extends AFieldObject {
     strafeCooldown = 60.0;
     strafingRight = true;
     backupDistance = 400;
+    modeCooldown = 10.0;
   }
 
   public void tick(Field field) {
@@ -233,6 +234,7 @@ setDirection(newDirection);
     if (modeCooldown > 0.0) {
       modeCooldown -= 1.0;
     }
+    if (getTeam() == 3)System.out.println(modeCooldown);
     if (cooldown > 0.0) cooldown -= 1.0;
     if (target == null || target.getHp() <= 0 || distanceTo(target) > VISION_RADIUS) {
       enemyMode = ENEMY_PEACEFUL;

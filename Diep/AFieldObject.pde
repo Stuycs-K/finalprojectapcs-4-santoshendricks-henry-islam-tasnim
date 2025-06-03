@@ -32,7 +32,18 @@ abstract class AFieldObject {
   public abstract boolean isTouching(AFieldObject other);
   
   public void tickPos(Field field) {
+    PVector pos = position;
     position.add(speed);
+        for (int i = 0; i < field.objects.size(); i++) {
+      AFieldObject obj = field.objects.get(i);// get object from list
+
+      if (obj.getType() == TYPE_POLY) {
+        if (obj.isTouching(this)) { // isTouching autmatically applies damage, check Bullet code
+          position = pos; //"kills" bullet
+        }
+      }
+    }
+    
   }
   
   public double distanceTo(AFieldObject other) {

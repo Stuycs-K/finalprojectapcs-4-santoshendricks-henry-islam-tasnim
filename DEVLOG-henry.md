@@ -27,9 +27,20 @@ Received notes from Mr. K on the prototype and began fixing the noted issues by 
 ### 2025-05-28
 Wrote basic constructor for AFieldObject (renamed for Processing bug reasons). Added the team identifier to AFieldObject to stop friendly fire, moved the size field from the subclasses up to AFieldObject to make touch sensitivity easier, wrote constructor for the Bullet class and implemented isTouching to help bullets detect players.
 
-### 2024-05-29 - Brief description
+### 2025-05-29 - Brief description
 Tested and fixed distanceTo, isTouching, and render for Bullet class (successful).
 
-### 2024-05-29 - Brief description
+### 2025-05-29 - Brief description
 Created the Field class and wrote constructors, getters, and removers. Added tick function to AFieldObject and implemented it in a draft for Bullet.
 
+### 2025-05-30
+Started writing tick in a way that differentiated player and enemy ticks. Added mouse pointing fucntionality to the user player.
+
+### 2025-06-01
+Added code to remove all dead objects. Added code to make bullets deal damage to players not on their team, and then delete themselves. Coded Field to record keystates, and used those keystates to allow the player to move using the WASD keys. Gave the player the ability to shoot bullets by clicking the mouse. Tinkered with speed and cooldown constants, also reformatting the usage of Field in the main file. Started writing enemy bot algorithm by creating a peaceful mode for the bot in which the bot wanders around a bunch.
+
+### Same work session, but in the morning of 2025-06-02
+Finished writing the enemy bot code to strafe, charge, and maintain distance. Coded enemies to die upon losing health. Added lifetime cooldown timer to bullets so they would disappear afer a certain amount of time to reduce lag. Wrote players' names above their heads. Started spawning enemies in random locations and added polygons, giving them the functioonality of dying and taking damage.Enlarged the field size and made enemies respawn instead of being deleted to create a perpetual game.
+
+### 2025-06-03
+Changed bot AI to stop it from mostly only attacking the user. Tested and verified that peacfeul mode worked as intended. Added HP bars under each player that change color depending on health. Reduced enemy accuracy to make them easier to fight.

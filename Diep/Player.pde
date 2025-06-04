@@ -140,6 +140,7 @@ setDirection(newDirection);
     } else if (enemyMode == ENEMY_STRAFE) {
       if (strafingRight) { // Switching between left and right strafe
         PVector newDir = PVector.sub(target.getPosition(), getPosition());
+        newDir.rotate(radians((float)Math.random() * 10 - 5));
         setDirection(newDir);
         PVector newSpeed = new PVector(getDirection().y, -getDirection().x);
         if (distanceTo(target) >= MIN_FIGHTING_DIST) {

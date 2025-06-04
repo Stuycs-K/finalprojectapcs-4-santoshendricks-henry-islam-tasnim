@@ -53,6 +53,22 @@ public void render() {
     vertex(sx, sy);
   }
   endShape(CLOSE);
+  if (getHp() < getMaxHp()) {
+    if (getHp() > getMaxHp() * 0.75) {
+      fill(0, 200, 0);
+    } else if (getHp() > getMaxHp() * 0.5) {
+      fill(200, 200, 0);
+    } else if (getHp() > getMaxHp() * 0.25) {
+      fill(200, 100, 0);
+    } else {
+      fill(200, 0, 0);
+    }
+    noStroke();
+    rectMode(CORNER);
+    rect(getX() - getSize() * 2, getY() + getSize() * 2 + 10, 2 * getSize() * 2 * ((float)getHp() / getMaxHp()), 13);
+    rectMode(CENTER);
+    stroke(10);
+  }
   //System.out.println(type);
 }
 

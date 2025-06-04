@@ -35,10 +35,18 @@ void draw() {
     pushMatrix();
     applyCamera();  
     // world border
-    noFill();
+    fill(210, 210, 210);
     stroke(0);
     strokeWeight(5);
     rect(0, 0, globalField.fWidth, globalField.fHeight);
+    noStroke();
+    fill(180, 180, 180);
+    for (int i = 20; i < globalField.fWidth; i+=20) {
+      rect(-globalField.fWidth / 2 + i, 0, 1, globalField.fHeight - 5);
+    }
+    for (int i = 20; i < globalField.fHeight; i+=20) {
+      rect(0, -globalField.fHeight / 2 + i, globalField.fWidth, 1);
+    }
 
 
 

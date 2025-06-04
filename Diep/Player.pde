@@ -93,14 +93,32 @@ setDirection(newDirection);
     }
 
     if (cooldown > 0.0) cooldown -= 1.0;
-    tickPos(field);
+tickPos(field);
 
-    // clamp inside world boundaries 
-    PVector pos = getPosition();
-    pos.x = constrain(pos.x, -field.fWidth/2, field.fWidth/2);
-    pos.y = constrain(pos.y, -field.fHeight/2, field.fHeight/2);
+// clamp inside world boundaries 
+PVector pos = getPosition();
+pos.x = constrain(pos.x, -field.fWidth/2, field.fWidth/2);
+pos.y = constrain(pos.y, -field.fHeight/2, field.fHeight/2);
+setPosition(pos);
 
-    setPosition(pos);
+// polygon collision pushback
+for (int i = 0; i < field.objects.size(); i++) {
+  AFieldObject obj = field.objects.get(i);
+
+  if (obj.getType() == TYPE_POLY) {
+    float dist = PVector.dist(getPosition(), obj.getPosition());
+    float polyCollisionRadius = obj.getSize() * 0.9f;
+    float minDist = getSize() + polyCollisionRadius;
+
+    if (dist < minDist) {
+      PVector push = PVector.sub(getPosition(), obj.getPosition());
+      push.normalize();
+      float overlap = (minDist - dist);
+      addPosition(push.copy().mult(overlap));
+    }
+  }
+}
+
     
     if (getHp() <= 0) {
       setPosition(new PVector((float)Math.random() * -field.fWidth, (float)Math.random() * -field.fHeight));

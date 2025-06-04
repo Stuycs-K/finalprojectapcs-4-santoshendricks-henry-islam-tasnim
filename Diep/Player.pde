@@ -117,6 +117,23 @@ for (int i = 0; i < field.objects.size(); i++) {
       addPosition(push.copy().mult(overlap));
     }
   }
+  // player-on-player collision
+for (int j = 0; j < field.objects.size(); j++) {
+  obj = field.objects.get(j);
+
+  if (obj.getType() == TYPE_PLAYER && obj != this) {
+    float dist = PVector.dist(getPosition(), obj.getPosition());
+    float minDist = getSize() + obj.getSize();
+
+    if (dist < minDist) {
+      PVector push = PVector.sub(getPosition(), obj.getPosition());
+      push.normalize();
+      float overlap = (minDist - dist);
+      addPosition(push.copy().mult(overlap));
+    }
+  }
+}
+
 }
 
     
@@ -259,6 +276,23 @@ for (int i = 0; i < field.objects.size(); i++) {
     if (target == null || target.getHp() <= 0 || distanceTo(target) > VISION_RADIUS) {
       enemyMode = ENEMY_PEACEFUL;
     }
+    // enemy-on-enemy collision
+for (int i = 0; i < field.objects.size(); i++) {
+  AFieldObject obj = field.objects.get(i);
+
+  if (obj.getType() == TYPE_PLAYER && obj != this) {
+    float dist = PVector.dist(getPosition(), obj.getPosition());
+    float minDist = getSize() + obj.getSize();
+
+    if (dist < minDist) {
+      PVector push = PVector.sub(getPosition(), obj.getPosition());
+      push.normalize();
+      float overlap = (minDist - dist);
+      addPosition(push.copy().mult(overlap));
+    }
+  }
+}
+
   }
   
   private void shoot(Field field) {

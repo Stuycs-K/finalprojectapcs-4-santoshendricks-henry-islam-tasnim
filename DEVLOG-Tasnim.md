@@ -38,6 +38,9 @@ Learnt about Matrixes and how they are a superior method to purely the transform
 ### 2024-06-01
 Abandoned the non-circular collisions after learning that Diep.io also ran into the same issue. Made the bullet collision object removal
 
+### 2024-06-01
+New UML maed to reflect current state of project.
+
 
 
 

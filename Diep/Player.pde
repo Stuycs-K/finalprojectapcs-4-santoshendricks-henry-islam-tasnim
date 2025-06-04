@@ -17,8 +17,8 @@ class Player extends AFieldObject {
   private double modeCooldown;
   private double strafeCooldown;
   private boolean strafingRight;
-  private final double VISION_RADIUS = 1000;
-  private final double MIN_FIGHTING_DIST = 200;
+  private final float VISION_RADIUS = 900;
+  private final float MIN_FIGHTING_DIST = 200;
   private double backupDistance;
   
   // Down here are special attributes for powerups
@@ -37,6 +37,7 @@ class Player extends AFieldObject {
     strafeCooldown = 60.0;
     strafingRight = true;
     backupDistance = 400;
+    modeCooldown = 10.0;
   }
 
   public void tick(Field field) {
@@ -66,7 +67,8 @@ class Player extends AFieldObject {
 );
 PVector newDirection = PVector.sub(mouseWorld, getPosition());
 setDirection(newDirection);
-
+    
+    
     // check keyboard WASD
     PVector newSpeed = new PVector(0.0, 0.0);
     if (field.wKey) {
@@ -112,21 +114,25 @@ setDirection(newDirection);
       if (modeCooldown <= 0.0) {
         double angle = Math.random() * 2 * Math.PI;
         setSpeed(new PVector((float)(speedStat * Math.cos(angle)), (float)(speedStat * Math.sin(angle))));
-        modeCooldown = (Math.random() * 120 + 180);
+        modeCooldown = (Math.random() * 120 + 50);
       }
       ArrayList<AFieldObject> objects = field.objects;
+      ArrayList<AFieldObject> targetList = new ArrayList<AFieldObject>();
       for (int i = 0; i < objects.size(); i++) {
         if (distanceTo(objects.get(i)) <= VISION_RADIUS && objects.get(i).getType() == TYPE_PLAYER && objects.get(i).getTeam() != getTeam()) {
-          // lock onto target
-          target = objects.get(i);
-          enemyMode = ENEMY_CHOICES[(int)(Math.random() * (ENEMY_CHOICES.length - 1))];
-          modeCooldown = (Math.random() * 120 + 180);
-          i = objects.size(); // Breaks out of loop
+          // add target
+          targetList.add(objects.get(i));
         }
       }
-      // Player takes priority
+      // Player takes noa priority
       if (distanceTo(field.user) <= VISION_RADIUS) {
-        target = field.user;
+        
+        targetList.add(field.user);
+        
+      }
+      
+      if (targetList.size() > 0) {
+        target = targetList.get((int)(Math.random() * targetList.size()));
         enemyMode = ENEMY_CHOICES[(int)(Math.random() * (ENEMY_CHOICES.length - 1))];
         modeCooldown = (Math.random() * 120 + 180);
       }
@@ -134,6 +140,7 @@ setDirection(newDirection);
     } else if (enemyMode == ENEMY_STRAFE) {
       if (strafingRight) { // Switching between left and right strafe
         PVector newDir = PVector.sub(target.getPosition(), getPosition());
+        newDir.rotate(radians((float)Math.random() * 10 - 5));
         setDirection(newDir);
         PVector newSpeed = new PVector(getDirection().y, -getDirection().x);
         if (distanceTo(target) >= MIN_FIGHTING_DIST) {
@@ -229,6 +236,7 @@ setDirection(newDirection);
     if (modeCooldown > 0.0) {
       modeCooldown -= 1.0;
     }
+    if (getTeam() == 3)System.out.println(modeCooldown);
     if (cooldown > 0.0) cooldown -= 1.0;
     if (target == null || target.getHp() <= 0 || distanceTo(target) > VISION_RADIUS) {
       enemyMode = ENEMY_PEACEFUL;
@@ -258,10 +266,10 @@ setDirection(newDirection);
     return level;
   }
   public boolean isTouching(AFieldObject other) {
-    return PVector.dist(this.getPosition(), other.getPosition()) <= this.getSize() + other.getSize();
+    return PVector.dist(this.getPosition(), other.getPosition()) <= (this.getSize() + other.getSize());
   }
 
-  public double distanceTo(AFieldObject other) {
+  public float distanceTo(AFieldObject other) {
     return PVector.sub(this.getPosition(), other.getPosition()).mag();
   }
 
@@ -272,11 +280,11 @@ public void render() {
   // draw body first
   fill(getColor());
   noStroke();
-  circle(pos.x, pos.y, getSize());
+  circle(pos.x, pos.y, getSize() *2);
 
   // draw barrel
-  float barrelLength = getSize() * 1.2;
-  float barrelWidth = getSize() * 0.3f;
+  float barrelLength = getSize() * 2.4;
+  float barrelWidth = getSize() * 0.6f;
 
   // calculate barrel rectangle center
   float angle = atan2(dir.y, dir.x);
@@ -289,6 +297,18 @@ public void render() {
   rect(barrelLength / 2, 0, barrelLength, barrelWidth);
   popMatrix();
   
-  text(name, (float)getX(), (float)getY() - getSize() - 15);
+  text(name + ": " + getHp(), (float)getX(), (float)getY() - getSize() - 15);
+  if (getHp() > getMaxHp() * 0.75) {
+    fill(0, 200, 0);
+  } else if (getHp() > getMaxHp() * 0.5) {
+    fill(200, 200, 0);
+  } else if (getHp() > getMaxHp() * 0.25) {
+    fill(200, 100, 0);
+  } else {
+    fill(200, 0, 0);
+  }
+  rectMode(CORNER);
+  rect(getX() - getSize(), getY() + getSize() + 10, 2 * getSize() * ((float)getHp() / getMaxHp()), 13);
+  rectMode(CENTER);
 }
 }

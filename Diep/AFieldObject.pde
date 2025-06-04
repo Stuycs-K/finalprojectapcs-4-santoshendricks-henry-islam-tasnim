@@ -6,6 +6,7 @@ abstract class AFieldObject {
   private int hp;
   private color objColor;
   private int size;
+  private int maxHp;
   
   private int team; // this is a number that identifies an object
 
@@ -18,6 +19,7 @@ abstract class AFieldObject {
     this.direction = direction;
     this.type = type;
     this.hp = hp;
+    this.maxHp = hp;
     this.objColor = objColor;
     this.team = team;
     this.size = size;
@@ -46,7 +48,7 @@ abstract class AFieldObject {
     
   }
   
-  public double distanceTo(AFieldObject other) {
+  public float distanceTo(AFieldObject other) {
     return PVector.sub(position, other.getPosition()).mag();
   }
 
@@ -60,11 +62,11 @@ abstract class AFieldObject {
     position.add(change);
   }
   
-  public void setX(double x) {
+  public void setX(float x) {
     position.x = (float)x;
   }
 
-  public void setY(double y) {
+  public void setY(float y) {
     position.y = (float)y;
   }
 
@@ -83,11 +85,11 @@ abstract class AFieldObject {
   }
 
   // functions to be added to UML
-  public double getX() {
+  public float getX() {
     return position.x;
   }
 
-  public double getY() {
+  public float getY() {
     return position.y;
   }
 
@@ -104,12 +106,18 @@ abstract class AFieldObject {
   public void setHp(int hp) {
     this.hp = hp;
   }
+  public int getMaxHp() {
+    return maxHp;
+  }
+  public void setMaxHp(int maxHp) {
+    this.maxHp = maxHp;
+  }
 
   public int getType() {
     return type;
   }
 
-  public double getSpeedMag() {
+  public float getSpeedMag() {
     return speed.mag();
   }
   public PVector getSpeed() {

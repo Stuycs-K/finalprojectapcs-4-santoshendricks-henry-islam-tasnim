@@ -17,8 +17,8 @@ class Player extends AFieldObject {
   private double modeCooldown;
   private double strafeCooldown;
   private boolean strafingRight;
-  private final double VISION_RADIUS = 1;
-  private final double MIN_FIGHTING_DIST = 200;
+  private final float VISION_RADIUS = 900;
+  private final float MIN_FIGHTING_DIST = 200;
   private double backupDistance;
   
   // Down here are special attributes for powerups
@@ -114,7 +114,7 @@ setDirection(newDirection);
       if (modeCooldown <= 0.0) {
         double angle = Math.random() * 2 * Math.PI;
         setSpeed(new PVector((float)(speedStat * Math.cos(angle)), (float)(speedStat * Math.sin(angle))));
-        modeCooldown = (Math.random() * 120 + 180);
+        modeCooldown = (Math.random() * 120 + 50);
       }
       ArrayList<AFieldObject> objects = field.objects;
       ArrayList<AFieldObject> targetList = new ArrayList<AFieldObject>();
@@ -268,7 +268,7 @@ setDirection(newDirection);
     return PVector.dist(this.getPosition(), other.getPosition()) <= (this.getSize() + other.getSize());
   }
 
-  public double distanceTo(AFieldObject other) {
+  public float distanceTo(AFieldObject other) {
     return PVector.sub(this.getPosition(), other.getPosition()).mag();
   }
 
@@ -296,6 +296,17 @@ public void render() {
   rect(barrelLength / 2, 0, barrelLength, barrelWidth);
   popMatrix();
   
-  text(name, (float)getX(), (float)getY() - getSize() - 15);
+  text(name + ": " + getHp(), (float)getX(), (float)getY() - getSize() - 15);
+  if (getHp() > getMaxHp() * 0.75) {
+    fill(0, 200, 0);
+  } else if (getHp() > getMaxHp() * 0.5) {
+    fill(200, 200, 0);
+  } else if (getHp() > getMaxHp() * 0.25) {
+    fill(200, 100, 0);
+  } else {
+    fill(200, 0, 0);
+  }
+  rectMode(CORNER);
+  rect(getX() - getSize(), getY() + getSize() + 10, 2 * getSize() * ((float)getHp() / getMaxHp()), 13);
 }
 }

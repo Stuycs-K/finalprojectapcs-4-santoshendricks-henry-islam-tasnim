@@ -37,7 +37,8 @@ Battle modes: the bot will either strafe (go towards the target while moving bac
 New UML
 ![Second UML](Prototype.PNG)
 
-    
+![Third UML](https://github.com/user-attachments/assets/46e4d337-333f-495f-88d5-9a98e3c6c13e)
+
 # Intended pacing:
 
 Pacing schedule:

@@ -308,5 +308,6 @@ public void render() {
   }
   rectMode(CORNER);
   rect(getX() - getSize(), getY() + getSize() + 10, 2 * getSize() * ((float)getHp() / getMaxHp()), 13);
+  rectMode(CENTER);
 }
 }

@@ -77,7 +77,7 @@ void mousePressed() {
     menu.handleClick(mouseX, mouseY);
     if (menu.isStartPressed()) {
       // NOW we create the field after player typed name
-      globalField = new Field(2500, 2500, menu.getPlayerName());
+      globalField = new Field(3000, 3000, menu.getPlayerName());
  // Player e0 = new Player(2, new PVector(4800, 4800), new PVector(0, 0), new PVector(0, 0), color(150, 0, 0), PLAYER_START_SIZE, "Enemy 1");
   
   //globalField.addObj(e0);

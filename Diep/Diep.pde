@@ -1,6 +1,6 @@
 import java.util.*;
 
-static final int PLAYER_START_SIZE = 50;
+static final int PLAYER_START_SIZE = 25;
 static final int TYPE_PLAYER = 0;
 static final int TYPE_BULLET = 1;
 static final int TYPE_POLY = 2;

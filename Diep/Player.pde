@@ -67,7 +67,8 @@ class Player extends AFieldObject {
 );
 PVector newDirection = PVector.sub(mouseWorld, getPosition());
 setDirection(newDirection);
-
+    
+    
     // check keyboard WASD
     PVector newSpeed = new PVector(0.0, 0.0);
     if (field.wKey) {
@@ -264,7 +265,7 @@ setDirection(newDirection);
     return level;
   }
   public boolean isTouching(AFieldObject other) {
-    return PVector.dist(this.getPosition(), other.getPosition()) <= this.getSize() + other.getSize();
+    return PVector.dist(this.getPosition(), other.getPosition()) <= (this.getSize() + other.getSize());
   }
 
   public double distanceTo(AFieldObject other) {
@@ -278,11 +279,11 @@ public void render() {
   // draw body first
   fill(getColor());
   noStroke();
-  circle(pos.x, pos.y, getSize());
+  circle(pos.x, pos.y, getSize() *2);
 
   // draw barrel
-  float barrelLength = getSize() * 1.2;
-  float barrelWidth = getSize() * 0.3f;
+  float barrelLength = getSize() * 2.4;
+  float barrelWidth = getSize() * 0.6f;
 
   // calculate barrel rectangle center
   float angle = atan2(dir.y, dir.x);

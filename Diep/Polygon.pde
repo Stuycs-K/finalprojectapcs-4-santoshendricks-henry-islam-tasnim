@@ -48,8 +48,8 @@ public void render() {
   float angle = TWO_PI / type;
   beginShape();
   for (int i = 0; i < type; i++) {
-    float sx = getPosition().x + cos(angle * i) * getSize();
-    float sy = getPosition().y + sin(angle * i) * getSize();
+  float sx = getPosition().x + cos(angle * i) * getSize() *2 ;
+    float sy = getPosition().y + sin(angle * i) * getSize() * 2;
     vertex(sx, sy);
   }
   endShape(CLOSE);

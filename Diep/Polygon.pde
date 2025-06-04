@@ -54,6 +54,11 @@ public void render() {
   }
   endShape(CLOSE);
   if (getHp() < getMaxHp()) {
+    
+    noStroke();
+    rectMode(CORNER);
+    fill(100, 100, 100);
+    rect(getX() - getSize() * 2, getY() + getSize() * 2 + 10, 4 * getSize(), 13);
     if (getHp() > getMaxHp() * 0.75) {
       fill(0, 200, 0);
     } else if (getHp() > getMaxHp() * 0.5) {
@@ -63,11 +68,9 @@ public void render() {
     } else {
       fill(200, 0, 0);
     }
-    noStroke();
-    rectMode(CORNER);
-    rect(getX() - getSize() * 2, getY() + getSize() * 2 + 10, 2 * getSize() * 2 * ((float)getHp() / getMaxHp()), 13);
-    rectMode(CENTER);
+    rect(getX() - getSize() * 2, getY() + getSize() * 2 + 10, 4 * getSize() * ((float)getHp() / getMaxHp()), 13);
     stroke(10);
+    rectMode(CENTER);
   }
   //System.out.println(type);
 }

@@ -10,7 +10,6 @@ class UpgradeMenu {
     this.x = x;
     this.y = y;
     this.w = w;
-    // Calculate height dynamically based on button count
     this.h = 80 + (buttonHeight + buttonSpacing) * upgrades.length;
   }
 

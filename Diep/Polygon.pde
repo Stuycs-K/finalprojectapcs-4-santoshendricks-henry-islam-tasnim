@@ -43,7 +43,7 @@ class Polygon extends AFieldObject {
   }
 
 public void render() {
-  fill(getColor());
+ fill(getColor());
   stroke(10);
   float angle = TWO_PI / type;
   beginShape();
@@ -53,7 +53,25 @@ public void render() {
     vertex(sx, sy);
   }
   endShape(CLOSE);
-  //System.out.println(type);
+  if (getHp() < getMaxHp()) {
+    
+    noStroke();
+    rectMode(CORNER);
+    fill(100, 100, 100);
+    rect(getX() - getSize() * 2, getY() + getSize() * 2 + 10, 4 * getSize(), 13);
+    if (getHp() > getMaxHp() * 0.75) {
+      fill(0, 200, 0);
+    } else if (getHp() > getMaxHp() * 0.5) {
+      fill(200, 200, 0);
+    } else if (getHp() > getMaxHp() * 0.25) {
+      fill(200, 100, 0);
+    } else {
+      fill(200, 0, 0);
+    }
+    rect(getX() - getSize() * 2, getY() + getSize() * 2 + 10, 4 * getSize() * ((float)getHp() / getMaxHp()), 13);
+    stroke(10);
+    rectMode(CENTER);
+  }
 }
 
 public void tick(Field field) {

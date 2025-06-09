@@ -5,7 +5,7 @@ class Player extends AFieldObject {
   private int tankClass;
   private int teams;
   private double cooldown;
-  
+
   private int enemyMode;
   private AFieldObject target;
   private final int ENEMY_PEACEFUL = 0;
@@ -20,16 +20,21 @@ class Player extends AFieldObject {
   private final float VISION_RADIUS = 900;
   private final float MIN_FIGHTING_DIST = 200;
   private double backupDistance;
-  
-  // Down here are special attributes for powerups
+
+  // Upgrade stats
   private float speedStat;
-   
+  private float reloadStat = 30.0;
+  private float bulletSpeed = 10.0;
+  private int bulletDamage = 10;
+  private int upgradePoints = 5;
+  private int[] upgradeLevels = {0, 0, 0, 0, 0};
+
   public Player(int team, PVector position, PVector speed, PVector direction, color objColor, int size, String nameP) {
     super(0, team, position, speed, direction, 100, objColor, size);
     xp = 0;
     level = 1;
     tankClass = 0;
-    name = nameP;  // (or replace with String if you plan to fix name type)
+    name = nameP;
     cooldown = 0.0;
     enemyMode = ENEMY_PEACEFUL;
     target = null;
@@ -41,13 +46,11 @@ class Player extends AFieldObject {
   }
 
   public void tick(Field field) {
-    // Check if hit by a bullet or polygon
     for (int i = 0; i < field.objects.size(); i++) {
-      AFieldObject obj = field.objects.get(i);// get object from list
-
+      AFieldObject obj = field.objects.get(i);
       if (obj.getType() == TYPE_BULLET && obj.getTeam() != getTeam()) {
-        if (obj.isTouching(this)) { // isTouching autmatically applies damage, check Bullet code
-          globalField.objects.get(i).takeDamage(10); //"kills" bullet
+        if (obj.isTouching(this)) {
+          globalField.objects.get(i).takeDamage(10);
         }
       }
     }
@@ -56,90 +59,6 @@ class Player extends AFieldObject {
       tickUser(field);
     } else {
       tickEnemy(field);
-      //text(getHp(), 100, 100);
-    }
-  }
-
-  private void tickUser(Field field) {
-    PVector mouseWorld = new PVector(
-  mouseX - width/2 + getPosition().x,
-  mouseY - height/2 + getPosition().y
-);
-PVector newDirection = PVector.sub(mouseWorld, getPosition());
-setDirection(newDirection);
-    
-    
-    // check keyboard WASD
-    PVector newSpeed = new PVector(0.0, 0.0);
-    if (field.wKey) {
-      newSpeed.add(new PVector(0.0, -1.0));
-    }
-    if (field.aKey) {
-      newSpeed.add(new PVector(-1.0, 0.0));
-    }
-    if (field.sKey) {
-      newSpeed.add(new PVector(0.0, 1.0));
-    }
-    if (field.dKey) {
-      newSpeed.add(new PVector(1.0, 0.0));
-    }
-    setSpeed(newSpeed.normalize().mult(speedStat));
-    
-    // Check if you should shoot
-    if (field.mouseDown && cooldown <= 0.0) {
-      // Substitute without special classes; call with tasnim tonight
-      shoot(field);
-      cooldown = 30.0;
-    }
-
-    if (cooldown > 0.0) cooldown -= 1.0;
-tickPos(field);
-
-// clamp inside world boundaries 
-PVector pos = getPosition();
-pos.x = constrain(pos.x, -field.fWidth/2, field.fWidth/2);
-pos.y = constrain(pos.y, -field.fHeight/2, field.fHeight/2);
-setPosition(pos);
-
-// polygon collision pushback
-for (int i = 0; i < field.objects.size(); i++) {
-  AFieldObject obj = field.objects.get(i);
-
-  if (obj.getType() == TYPE_POLY) {
-    float dist = PVector.dist(getPosition(), obj.getPosition());
-    float polyCollisionRadius = obj.getSize() * 0.9f;
-    float minDist = getSize() + polyCollisionRadius;
-
-    if (dist < minDist) {
-      PVector push = PVector.sub(getPosition(), obj.getPosition());
-      push.normalize();
-      float overlap = (minDist - dist);
-      addPosition(push.copy().mult(overlap));
-    }
-  }
-  // player-on-player collision
-for (int j = 0; j < field.objects.size(); j++) {
-  obj = field.objects.get(j);
-
-  if (obj.getType() == TYPE_PLAYER && obj != this) {
-    float dist = PVector.dist(getPosition(), obj.getPosition());
-    float minDist = getSize() + obj.getSize();
-
-    if (dist < minDist) {
-      PVector push = PVector.sub(getPosition(), obj.getPosition());
-      push.normalize();
-      float overlap = (minDist - dist);
-      addPosition(push.copy().mult(overlap));
-    }
-  }
-}
-
-}
-
-    
-    if (getHp() <= 0) {
-      setPosition(new PVector((float)Math.random() * -field.fWidth, (float)Math.random() * -field.fHeight));
-      setHp(100);
     }
   }
   
@@ -276,47 +195,107 @@ for (int j = 0; j < field.objects.size(); j++) {
     if (target == null || target.getHp() <= 0 || distanceTo(target) > VISION_RADIUS) {
       enemyMode = ENEMY_PEACEFUL;
     }
-    // enemy-on-enemy collision
-for (int i = 0; i < field.objects.size(); i++) {
-  AFieldObject obj = field.objects.get(i);
-
-  if (obj.getType() == TYPE_PLAYER && obj != this) {
-    float dist = PVector.dist(getPosition(), obj.getPosition());
-    float minDist = getSize() + obj.getSize();
-
-    if (dist < minDist) {
-      PVector push = PVector.sub(getPosition(), obj.getPosition());
-      push.normalize();
-      float overlap = (minDist - dist);
-      addPosition(push.copy().mult(overlap));
-    }
-  }
-}
-
   }
   
+
+  private void tickUser(Field field) {
+    PVector mouseWorld = new PVector(mouseX - width/2 + getPosition().x, mouseY - height/2 + getPosition().y);
+    PVector newDirection = PVector.sub(mouseWorld, getPosition());
+    setDirection(newDirection);
+
+    PVector newSpeed = new PVector(0.0, 0.0);
+    if (field.wKey) newSpeed.add(new PVector(0.0, -1.0));
+    if (field.aKey) newSpeed.add(new PVector(-1.0, 0.0));
+    if (field.sKey) newSpeed.add(new PVector(0.0, 1.0));
+    if (field.dKey) newSpeed.add(new PVector(1.0, 0.0));
+    setSpeed(newSpeed.normalize().mult(speedStat));
+
+    if (field.mouseDown && cooldown <= 0.0) {
+      shoot(field);
+      cooldown = reloadStat;
+    }
+
+    if (cooldown > 0.0) cooldown -= 1.0;
+    tickPos(field);
+
+    PVector pos = getPosition();
+    pos.x = constrain(pos.x, -field.fWidth/2, field.fWidth/2);
+    pos.y = constrain(pos.y, -field.fHeight/2, field.fHeight/2);
+    setPosition(pos);
+
+    handleCollisions(field);
+
+    if (getHp() <= 0) {
+      setPosition(new PVector((float)Math.random() * -field.fWidth, (float)Math.random() * -field.fHeight));
+      setHp(100);
+    }
+  }
+
+  private void handleCollisions(Field field) {
+    for (int i = 0; i < field.objects.size(); i++) {
+      AFieldObject obj = field.objects.get(i);
+      if (obj.getType() == TYPE_POLY || obj.getType() == TYPE_PLAYER) {
+        float dist = PVector.dist(getPosition(), obj.getPosition());
+        float minDist = getSize() + obj.getSize();
+        if (dist < minDist && obj != this) {
+          PVector push = PVector.sub(getPosition(), obj.getPosition());
+          push.normalize();
+          float overlap = (minDist - dist);
+          addPosition(push.copy().mult(overlap));
+        }
+      }
+    }
+  }
+
   private void shoot(Field field) {
-    Bullet newBullet = new Bullet(getTeam(), getPosition(), PVector.mult(getDirection(), 10.0), getDirection(), getColor(), 20, 10, 120.0);
+    Bullet newBullet = new Bullet(getTeam(), getPosition(),
+      PVector.mult(getDirection(), bulletSpeed), getDirection(), getColor(), 20, bulletDamage, 120.0);
     field.addObj(newBullet);
   }
 
-
-  public int getXP() {
-    return xp;
+  public void applyUpgrade(int type) {
+    if (upgradePoints <= 0) return;
+    upgradePoints--;
+    upgradeLevels[type - 1]++;
+    if (type == 1) { setMaxHp(getMaxHp() + 10); setHp(getHp() + 10); }
+    if (type == 2) { reloadStat *= 0.9; }
+    if (type == 3) { bulletSpeed += 2; }
+    if (type == 4) { bulletDamage += 2; }
+    if (type == 5) { speedStat += 0.3; }
   }
 
-  public void setXP(int newp) {
-    xp = newp;
-    calcLevel();
-  }
-  public int getLevel() {
-    return level;
+  public void render() {
+    PVector pos = getPosition();
+    PVector dir = getDirection();
+
+    fill(getColor());
+    noStroke();
+    circle(pos.x, pos.y, getSize() * 2);
+
+    float barrelLength = getSize() * 2.4f;
+    float barrelWidth = getSize() * 0.6f;
+    float angle = atan2(dir.y, dir.x);
+
+    pushMatrix();
+    translate(pos.x, pos.y);
+    rotate(angle);
+    fill(100);
+    rectMode(CENTER);
+    rect(barrelLength / 2, 0, barrelLength, barrelWidth);
+    popMatrix();
+
+    text(name + ": " + getHp(), pos.x, pos.y - getSize() - 15);
+
+    if (getHp() > getMaxHp() * 0.75) fill(0, 200, 0);
+    else if (getHp() > getMaxHp() * 0.5) fill(200, 200, 0);
+    else if (getHp() > getMaxHp() * 0.25) fill(200, 100, 0);
+    else fill(200, 0, 0);
+
+    rectMode(CORNER);
+    rect(getX() - getSize(), getY() + getSize() + 10, 2 * getSize() * ((float)getHp() / getMaxHp()), 13);
+    rectMode(CENTER);
   }
 
-  public int calcLevel() {
-    level = (int)(Math.log(xp + 1) / Math.log(2));
-    return level;
-  }
   public boolean isTouching(AFieldObject other) {
     return PVector.dist(this.getPosition(), other.getPosition()) <= (this.getSize() + other.getSize());
   }
@@ -324,43 +303,4 @@ for (int i = 0; i < field.objects.size(); i++) {
   public float distanceTo(AFieldObject other) {
     return PVector.sub(this.getPosition(), other.getPosition()).mag();
   }
-
-public void render() {
-  PVector pos = getPosition();
-  PVector dir = getDirection();
-
-  // draw body first
-  fill(getColor());
-  noStroke();
-  circle(pos.x, pos.y, getSize() *2);
-
-  // draw barrel
-  float barrelLength = getSize() * 2.4;
-  float barrelWidth = getSize() * 0.6f;
-
-  // calculate barrel rectangle center
-  float angle = atan2(dir.y, dir.x);
-  
-  pushMatrix();
-  translate(pos.x, pos.y);
-  rotate(angle);
-  fill(100);
-  rectMode(CENTER);
-  rect(barrelLength / 2, 0, barrelLength, barrelWidth);
-  popMatrix();
-  
-  text(name + ": " + getHp(), (float)getX(), (float)getY() - getSize() - 15);
-  if (getHp() > getMaxHp() * 0.75) {
-    fill(0, 200, 0);
-  } else if (getHp() > getMaxHp() * 0.5) {
-    fill(200, 200, 0);
-  } else if (getHp() > getMaxHp() * 0.25) {
-    fill(200, 100, 0);
-  } else {
-    fill(200, 0, 0);
-  }
-  rectMode(CORNER);
-  rect(getX() - getSize(), getY() + getSize() + 10, 2 * getSize() * ((float)getHp() / getMaxHp()), 13);
-  rectMode(CENTER);
-}
 }

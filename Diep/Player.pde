@@ -236,7 +236,6 @@ setDirection(newDirection);
     if (modeCooldown > 0.0) {
       modeCooldown -= 1.0;
     }
-    if (getTeam() == 3)System.out.println(modeCooldown);
     if (cooldown > 0.0) cooldown -= 1.0;
     if (target == null || target.getHp() <= 0 || distanceTo(target) > VISION_RADIUS) {
       enemyMode = ENEMY_PEACEFUL;
@@ -308,6 +307,17 @@ public void render() {
     fill(200, 0, 0);
   }
   rectMode(CORNER);
+  fill(100, 100, 100);
+  rect(getX() - getSize(), getY() + getSize() + 10, 2 * getSize(), 13);
+  if (getHp() > getMaxHp() * 0.75) {
+    fill(0, 200, 0);
+  } else if (getHp() > getMaxHp() * 0.5) {
+    fill(200, 200, 0);
+  } else if (getHp() > getMaxHp() * 0.25) {
+    fill(200, 100, 0);
+  } else {
+    fill(200, 0, 0);
+  }
   rect(getX() - getSize(), getY() + getSize() + 10, 2 * getSize() * ((float)getHp() / getMaxHp()), 13);
   rectMode(CENTER);
 }

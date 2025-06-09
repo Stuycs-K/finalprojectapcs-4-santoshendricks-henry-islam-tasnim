@@ -47,3 +47,7 @@ Changed bot AI to stop it from mostly only attacking the user. Tested and verifi
 
 ### 2025-06-09
 Updated prototype in order to make changes more clear and to lay out our development process. Added ability of player to gain xp by killing enemies and polygons. Had to deal with a lot of messy merge stuff because github decided to shred our code.
+
+
+
+I believe this document accurately reflects the contributions of my teamate

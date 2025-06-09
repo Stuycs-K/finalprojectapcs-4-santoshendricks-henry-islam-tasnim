@@ -28,7 +28,6 @@ class Polygon extends AFieldObject {
           other.takeDamage(5);
           this.takeDamage(5);
           cooldown = 40.0;
-          System.out.println("took damage");
         }
         return true;
       }

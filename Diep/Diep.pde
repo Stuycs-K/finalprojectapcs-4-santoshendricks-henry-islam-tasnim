@@ -43,6 +43,20 @@ void draw() {
     for (int i = 0; i < globalField.objects.size(); i++) {
       if (globalField.objects.get(i).getHp() <= 0) {
         AFieldObject obj = globalField.objects.get(i);
+        
+        if (obj.getKilledByTeam() == TEAM_USER) {
+          if (obj.getType() == TYPE_PLAYER) {
+            globalField.user.setXP(globalField.user.getXP() + 40);
+            System.out.println(globalField.user.getXP());
+          }
+          if (obj.getType() == TYPE_POLY) {
+            Polygon tmp = (Polygon) obj;
+          
+            globalField.user.setXP(globalField.user.getXP() + tmp.getXPStored());
+            System.out.println(globalField.user.getXP());
+          }
+        }
+        
         if (obj.getType() == TYPE_BULLET) {
           globalField.remObj(obj);
         } else {

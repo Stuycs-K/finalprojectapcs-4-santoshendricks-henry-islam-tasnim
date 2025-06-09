@@ -44,3 +44,6 @@ Finished writing the enemy bot code to strafe, charge, and maintain distance. Co
 
 ### 2025-06-03
 Changed bot AI to stop it from mostly only attacking the user. Tested and verified that peacfeul mode worked as intended. Added HP bars under each player that change color depending on health. Reduced enemy accuracy to make them easier to fight.
+
+### 2025-06-09
+Updated prototype in order to make changes more clear and to lay out our development process. Added ability of player to gain xp by killing enemies and polygons.

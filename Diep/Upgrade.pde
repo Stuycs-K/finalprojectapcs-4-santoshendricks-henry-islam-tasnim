@@ -37,7 +37,7 @@ void display() {
 
   fill(0);
   textSize(22);
-  text("Points: " + player.upgradePoints, x + w/2, y + h - 40);
+  text("Points: " + player.upgradePoints, w/2 - 3 * x, y + h - 20);
 }
 
 

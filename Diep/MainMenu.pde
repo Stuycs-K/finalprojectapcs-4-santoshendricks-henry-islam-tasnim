@@ -43,6 +43,7 @@ class MainMenu {
     textAlign(CENTER, CENTER);
     textSize(height * 0.04);
     text("START", buttonPos.x + buttonWidth / 2, buttonPos.y + buttonHeight / 2);
+    text("Move with WASD \n Move the gun with your mouse \n Click to shoot \n 1-5 for upgrades", buttonPos.x + buttonWidth / 2 , buttonPos.y + buttonHeight / 2 +160 );
   }
 
   public void handleClick(float mx, float my) {

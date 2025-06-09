@@ -1,6 +1,6 @@
 
 # Group Info
-Henry Santos Hendricks and Tasnim Islam
+Henry Santos Hendricks and Tasnim Islam Period 5
 Group name: Diep Thinkers
 
 # Technical Details:

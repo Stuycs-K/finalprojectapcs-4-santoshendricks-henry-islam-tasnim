@@ -41,6 +41,9 @@ Abandoned the non-circular collisions after learning that Diep.io also ran into 
 ### 2024-06-01
 New UML maed to reflect current state of project.
 
+### 2024-06-08
+Finished up the Upgrade System
+
 
 
 

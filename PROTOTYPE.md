@@ -19,7 +19,7 @@ Flank Guard: shoot in both directions~
 
 # Intended usage:
 
-(updated) The user will control their circular avatar with the WASD keys for movement and the mouse pointer to aim their gun. When the gun is clicked, the player will shoot, and there will be a cooldown preventing the player from shooting super fast. As the player gains XP, upgrade options will appear, which can be clicked on to give the player an upper edge. Dying results in the loss of all XP.
+(updated) The user will control their circular avatar with the WASD keys for movement and the mouse pointer to aim their gun. When the gun is clicked, the player will shoot, and there will be a cooldown preventing the player from shooting super fast. As the player gains XP, upgrade options will appear, whhen the user presses the corrensponding keys the player will be given an upper edge. Dying results in the loss of all XP.
 
 # Project Design
 

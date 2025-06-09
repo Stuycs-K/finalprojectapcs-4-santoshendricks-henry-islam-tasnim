@@ -59,9 +59,20 @@ void draw() {
       if (globalField.objects.get(i).getHp() <= 0) {
         //globalField.remObj(globalField.objects.get(i));
         
-        //i--;
+        //i--; penta
         
         AFieldObject obj = globalField.objects.get(i);
+        if (obj.getKilledByTeam() == TEAM_USER) {
+          if (obj.getType() == TYPE_PLAYER) {
+            globalField.user.setXP(globalField.user.getXP() + 40);
+          }
+          if (obj.getType() == TYPE_POLY) {
+            Polygon tmp = (Polygon) obj;
+          
+            globalField.user.setXP(globalField.user.getXP() + tmp.getXPStored());
+          }
+        }
+        
         if (obj.getType() == TYPE_BULLET) {
           globalField.remObj(obj);
         } else {

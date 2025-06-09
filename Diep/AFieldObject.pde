@@ -9,6 +9,7 @@ abstract class AFieldObject {
   private int maxHp;
   
   private int team; // this is a number that identifies an object
+  private int killedByTeam;
 
   private boolean isVisible;
   
@@ -23,6 +24,7 @@ abstract class AFieldObject {
     this.objColor = objColor;
     this.team = team;
     this.size = size;
+    killedByTeam = -1;
   }
 
   public boolean isVisible() {
@@ -126,5 +128,11 @@ abstract class AFieldObject {
   }
   public void setSize(int size) {
     this.size = size;
+  }
+  public int getKilledByTeam() {
+    return killedByTeam;
+  }
+  public void setKilledByTeam(int t) {
+    killedByTeam = t;
   }
 }

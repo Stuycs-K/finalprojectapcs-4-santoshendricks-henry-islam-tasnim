@@ -236,7 +236,6 @@ setDirection(newDirection);
     if (modeCooldown > 0.0) {
       modeCooldown -= 1.0;
     }
-    if (getTeam() == 3)System.out.println(modeCooldown);
     if (cooldown > 0.0) cooldown -= 1.0;
     if (target == null || target.getHp() <= 0 || distanceTo(target) > VISION_RADIUS) {
       enemyMode = ENEMY_PEACEFUL;

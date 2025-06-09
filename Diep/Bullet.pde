@@ -42,9 +42,7 @@ public void tick(Field field) {
   public boolean isTouching(AFieldObject other) {
     if (other.getType() == TYPE_PLAYER) {
       if (distanceTo(other) <= getSize() + other.getSize()) {
-        if (other.takeDamage(dmg)) {
-          other.setKilledByTeam(getTeam());
-        }
+        other.takeDamage(dmg);
         //System.out.println("took damage");
         return true;
       }
@@ -54,9 +52,7 @@ public void tick(Field field) {
     }
     if (other.getType() == TYPE_POLY) {
       if (distanceTo(other) <= getSize() + other.getSize()) {
-        if (other.takeDamage(dmg)) {
-          other.setKilledByTeam(getTeam());
-        }
+        other.takeDamage(dmg);
         takeDamage(10);
       }
     }

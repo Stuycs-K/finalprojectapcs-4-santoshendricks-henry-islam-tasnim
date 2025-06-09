@@ -9,7 +9,6 @@ abstract class AFieldObject {
   private int maxHp;
   
   private int team; // this is a number that identifies an object
-  private int killedByTeam;
 
   private boolean isVisible;
   
@@ -24,7 +23,6 @@ abstract class AFieldObject {
     this.objColor = objColor;
     this.team = team;
     this.size = size;
-    killedByTeam = -1;
   }
 
   public boolean isVisible() {
@@ -36,7 +34,18 @@ abstract class AFieldObject {
   public abstract boolean isTouching(AFieldObject other);
   
   public void tickPos(Field field) {
+    PVector pos = position;
     position.add(speed);
+        for (int i = 0; i < field.objects.size(); i++) {
+      AFieldObject obj = field.objects.get(i);// get object from list
+
+      if (obj.getType() == TYPE_POLY) {
+        if (obj.isTouching(this)) { // isTouching autmatically applies damage, check Bullet code
+          position = pos; //"kills" bullet
+        }
+      }
+    }
+    
   }
   
   public float distanceTo(AFieldObject other) {
@@ -128,11 +137,5 @@ abstract class AFieldObject {
   }
   public void setSize(int size) {
     this.size = size;
-  }
-  public int getKilledByTeam() {
-    return killedByTeam;
-  }
-  public void setKilledByTeam(int t) {
-    killedByTeam = t;
   }
 }

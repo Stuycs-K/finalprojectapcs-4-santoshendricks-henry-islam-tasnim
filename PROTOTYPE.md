@@ -81,6 +81,15 @@ Henry:
 - Write code to make player death and spawn objects
 - Write health bar code
 
+Tasnim:
+- Write Main Menu class to then start up the game
+- Write the collision functions for the items
+- Write the Upgrade Menu and System
+- Made the Polygon drawing for the different shapes
+- Hooked the Player class to the Upgrade Menu after having it as constants
+- Made the render for the Player
+
+
 
 # Intended pacing:
 

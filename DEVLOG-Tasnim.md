@@ -44,7 +44,8 @@ New UML maed to reflect current state of project.
 ### 2024-06-08
 Finished up the Upgrade System
 
-
+### Henry's statement:
+I believe this document accurately reflects the contributions of my teamate.
 
 
 

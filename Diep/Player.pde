@@ -264,37 +264,55 @@ class Player extends AFieldObject {
     if (type == 5) { speedStat += 0.3; }
   }
 
-  public void render() {
-    PVector pos = getPosition();
-    PVector dir = getDirection();
+public void render() {
+  PVector pos = getPosition();
+  PVector dir = getDirection();
 
-    fill(getColor());
-    noStroke();
-    circle(pos.x, pos.y, getSize() * 2);
+  // draw body first
+  fill(getColor());
+  noStroke();
+  circle(pos.x, pos.y, getSize() *2);
 
-    float barrelLength = getSize() * 2.4f;
-    float barrelWidth = getSize() * 0.6f;
-    float angle = atan2(dir.y, dir.x);
+  // draw barrel
+  float barrelLength = getSize() * 2.4;
+  float barrelWidth = getSize() * 0.6f;
 
-    pushMatrix();
-    translate(pos.x, pos.y);
-    rotate(angle);
-    fill(100);
-    rectMode(CENTER);
-    rect(barrelLength / 2, 0, barrelLength, barrelWidth);
-    popMatrix();
-
-    text(name + ": " + getHp(), pos.x, pos.y - getSize() - 15);
-
-    if (getHp() > getMaxHp() * 0.75) fill(0, 200, 0);
-    else if (getHp() > getMaxHp() * 0.5) fill(200, 200, 0);
-    else if (getHp() > getMaxHp() * 0.25) fill(200, 100, 0);
-    else fill(200, 0, 0);
-
-    rectMode(CORNER);
-    rect(getX() - getSize(), getY() + getSize() + 10, 2 * getSize() * ((float)getHp() / getMaxHp()), 13);
-    rectMode(CENTER);
+  // calculate barrel rectangle center
+  float angle = atan2(dir.y, dir.x);
+  
+  pushMatrix();
+  translate(pos.x, pos.y);
+  rotate(angle);
+  fill(100);
+  rectMode(CENTER);
+  rect(barrelLength / 2, 0, barrelLength, barrelWidth);
+  popMatrix();
+  
+  text(name + ": " + getHp(), (float)getX(), (float)getY() - getSize() - 15);
+  if (getHp() > getMaxHp() * 0.75) {
+    fill(0, 200, 0);
+  } else if (getHp() > getMaxHp() * 0.5) {
+    fill(200, 200, 0);
+  } else if (getHp() > getMaxHp() * 0.25) {
+    fill(200, 100, 0);
+  } else {
+    fill(200, 0, 0);
   }
+  rectMode(CORNER);
+  fill(100, 100, 100);
+  rect(getX() - getSize(), getY() + getSize() + 10, 2 * getSize(), 13);
+  if (getHp() > getMaxHp() * 0.75) {
+    fill(0, 200, 0);
+  } else if (getHp() > getMaxHp() * 0.5) {
+    fill(200, 200, 0);
+  } else if (getHp() > getMaxHp() * 0.25) {
+    fill(200, 100, 0);
+  } else {
+    fill(200, 0, 0);
+  }
+  rect(getX() - getSize(), getY() + getSize() + 10, 2 * getSize() * ((float)getHp() / getMaxHp()), 13);
+  rectMode(CENTER);
+}
 
   public boolean isTouching(AFieldObject other) {
     return PVector.dist(this.getPosition(), other.getPosition()) <= (this.getSize() + other.getSize());

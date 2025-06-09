@@ -26,12 +26,12 @@ class Player extends AFieldObject {
   private float reloadStat = 30.0;
   private float bulletSpeed = 10.0;
   private int bulletDamage = 10;
-  private int upgradePoints = 5;
+  private int upgradePoints;
   private int[] upgradeLevels = {0, 0, 0, 0, 0};
 
   public Player(int team, PVector position, PVector speed, PVector direction, color objColor, int size, String nameP) {
     super(0, team, position, speed, direction, 100, objColor, size);
-    xp = 0;
+    xp = 150;
     level = 1;
     tankClass = 0;
     name = nameP;
@@ -43,6 +43,7 @@ class Player extends AFieldObject {
     strafingRight = true;
     backupDistance = 400;
     modeCooldown = 10.0;
+    upgradePoints = 0;
   }
 
   public void tick(Field field) {
@@ -60,6 +61,7 @@ class Player extends AFieldObject {
     } else {
       tickEnemy(field);
     }
+    upgradePoints = xp/30;
   }
   
   private void tickEnemy(Field field) {
@@ -190,7 +192,7 @@ class Player extends AFieldObject {
     if (modeCooldown > 0.0) {
       modeCooldown -= 1.0;
     }
-    if (getTeam() == 3)System.out.println(modeCooldown);
+    
     if (cooldown > 0.0) cooldown -= 1.0;
     if (target == null || target.getHp() <= 0 || distanceTo(target) > VISION_RADIUS) {
       enemyMode = ENEMY_PEACEFUL;
@@ -255,7 +257,7 @@ class Player extends AFieldObject {
 
   public void applyUpgrade(int type) {
     if (upgradePoints <= 0) return;
-    upgradePoints--;
+    xp -= 30;
     upgradeLevels[type - 1]++;
     if (type == 1) { setMaxHp(getMaxHp() + 10); setHp(getHp() + 10); }
     if (type == 2) { reloadStat *= 0.9; }
@@ -320,5 +322,11 @@ public void render() {
 
   public float distanceTo(AFieldObject other) {
     return PVector.sub(this.getPosition(), other.getPosition()).mag();
+  }
+  public int getXP() {
+    return this.xp;
+  }
+  public void setXP(int xp) {
+    this.xp = xp;
   }
 }
